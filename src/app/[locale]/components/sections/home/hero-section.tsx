@@ -86,7 +86,6 @@ export default function HeroSection({ types }: { types: IType[] }) {
                     className="w-full h-full object-cover"
                     priority={index === 0}
                     fetchPriority={index === 0 ? "high" : "auto"}
-                    quality={70}
                   />
                 </span>
 

@@ -192,7 +192,6 @@ const renderPromotionCard = (item: any) => (
       sizes="(min-width: 768px) 500px,375px"    // specify height
       className="rounded object-cover"
       priority={false}   // set true only for above-the-fold images
-      quality={75}       // reduces file size while keeping good quality
       placeholder="blur" // optional: blur effect while loading
     />
     <div className="text-xs font-medium text-card-foreground mt-1 truncate">

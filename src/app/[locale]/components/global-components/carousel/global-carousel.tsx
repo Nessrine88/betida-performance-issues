@@ -1,13 +1,11 @@
 "use client";
-
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Button } from "../../../components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useSidebarStore } from "@/store/sidebar-store";
-import { useState } from "react";
 
-interface GlobalCarouselProps<T> {
+interface GlobalCarouselProps<T extends unknown = unknown> {
   title: string;
   title_href?: string;
   items: T[];
@@ -21,43 +19,12 @@ export default function GlobalCarousel<T>({
   title_href,
 }: GlobalCarouselProps<T>) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isClient, setIsClient] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const { setRouteLoading } = useSidebarStore();
-  const cardWidthRef = useRef(392);
-
-  // --- Measure card width ---
-  useEffect(() => {
-    const updateWidth = () => {
-      if (scrollRef.current?.firstElementChild) {
-        cardWidthRef.current = (scrollRef.current.firstElementChild as HTMLElement).clientWidth || 143;
-      }
-    };
-    updateWidth();
-
-    const observer = new ResizeObserver(updateWidth);
-    if (scrollRef.current) observer.observe(scrollRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  // --- Scroll ---
-  const scroll = useCallback((direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-    const gap = 16;
-    const amount = cardWidthRef.current + gap;
-    const target = scrollRef.current.scrollLeft + (direction === "left" ? -amount : amount);
-    scrollRef.current.scrollTo({ left: target, behavior: "smooth" });
-  }, []);
-
-  // --- Check scroll boundaries ---
-  const checkScroll = useCallback(() => {
-    if (!scrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
-  }, []);
-
-  // --- Momentum & drag ---
+  const [cardWidth, setCardWidth] = useState(392);
+  // --- drag scroll states ---
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollStart = useRef(0);
@@ -66,89 +33,145 @@ export default function GlobalCarousel<T>({
   const lastTime = useRef(0);
   const momentumID = useRef<number | null>(null);
 
-  const startMomentum = useCallback((v: number) => {
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    const updateCardWidth = () => {
+      if (scrollRef.current && scrollRef.current.firstElementChild) {
+        const firstChild = scrollRef.current.firstElementChild as HTMLElement;
+        setCardWidth(firstChild.clientWidth || 143);
+      }
+    };
+    updateCardWidth();
+    window.addEventListener("resize", updateCardWidth);
+    return () => window.removeEventListener("resize", updateCardWidth);
+  }, [isClient]);
+
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollRef.current) {
+      return;
+    }
+    const gap = 16;
+    const scrollAmount = cardWidth + gap;
+    const newScroll =
+      scrollRef.current.scrollLeft +
+      (direction === "left" ? -scrollAmount : scrollAmount);
+    scrollRef.current.scrollTo({ left: newScroll, behavior: "smooth" });
+  };
+
+  const checkScroll = () => {
+    if (!scrollRef.current) {
+      return;
+    }
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    checkScroll();
+  }, [isClient]);
+
+  // --- momentum scrolling logic ---
+  const startMomentumScroll = useCallback((initialVelocity: number) => {
     const el = scrollRef.current;
-    if (!el) return;
-    let vel = v;
+    if (!el) {
+      return;
+    }
+    let currentVelocity = initialVelocity;
     const step = () => {
-      if (Math.abs(vel) < 0.05) return;
-      el.scrollLeft -= vel;
-      vel *= 0.95;
+      if (Math.abs(currentVelocity) < 0.05) {
+        momentumID.current = null;
+        return;
+      }
+      el.scrollLeft -= currentVelocity;
+      currentVelocity *= 0.95;
       checkScroll();
       momentumID.current = requestAnimationFrame(step);
     };
     momentumID.current = requestAnimationFrame(step);
-  }, [checkScroll]);
+  }, []);
 
+  // --- drag scroll handlers ---
   useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
+    const carousel = scrollRef.current;
+    if (!carousel) {
+      return () => { };
+    }
 
-    const down = (e: MouseEvent) => {
+    const handleMouseDown = (e: MouseEvent) => {
       e.preventDefault();
-      if (momentumID.current) cancelAnimationFrame(momentumID.current);
+      if (momentumID.current) {
+        cancelAnimationFrame(momentumID.current);
+      }
       isDragging.current = true;
-      startX.current = e.pageX - el.offsetLeft;
-      scrollStart.current = el.scrollLeft;
+      startX.current = e.pageX - carousel.offsetLeft;
+      scrollStart.current = carousel.scrollLeft;
       lastX.current = e.pageX;
       lastTime.current = performance.now();
-      el.classList.add("cursor-grabbing");
-      document.addEventListener("mousemove", move);
-      document.addEventListener("mouseup", up);
+      carousel.classList.add("cursor-grabbing");
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", stopDragging);
     };
 
-    const move = (e: MouseEvent) => {
-      if (!isDragging.current) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current) {
+        return;
+      }
       e.preventDefault();
-      const x = e.pageX - el.offsetLeft;
+      const x = e.pageX - carousel.offsetLeft;
       const walk = (x - startX.current) * 1;
-      el.scrollLeft = scrollStart.current - walk;
+      carousel.scrollLeft = scrollStart.current - walk;
       const now = performance.now();
-      const dx = e.pageX - lastX.current;
-      const dt = now - lastTime.current;
-      velocity.current = dt > 0 ? dx / dt : 0;
+      const deltaX = e.pageX - lastX.current;
+      const deltaT = now - lastTime.current;
+      velocity.current = deltaT > 0 ? deltaX / deltaT : 0;
       lastX.current = e.pageX;
       lastTime.current = now;
       checkScroll();
     };
 
-    const up = () => {
-      if (!isDragging.current) return;
-      isDragging.current = false;
-      el.classList.remove("cursor-grabbing");
-      if (Math.abs(velocity.current) > 0.2) startMomentum(velocity.current * 5);
-      document.removeEventListener("mousemove", move);
-      document.removeEventListener("mouseup", up);
+    const stopDragging = (e: MouseEvent) => {
+      if (isDragging.current) {
+        e.preventDefault();
+        isDragging.current = false;
+        carousel.classList.remove("cursor-grabbing");
+        if (Math.abs(velocity.current) > 0.2) {
+          startMomentumScroll(velocity.current * 5);
+        }
+      }
+      // Remove global listeners
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", stopDragging);
     };
 
-    el.addEventListener("mousedown", down);
-    el.addEventListener("scroll", checkScroll);
+    carousel.addEventListener("mousedown", handleMouseDown);
 
     return () => {
-      el.removeEventListener("mousedown", down);
-      el.removeEventListener("scroll", checkScroll);
-      document.removeEventListener("mousemove", move);
-      document.removeEventListener("mouseup", up);
-      if (momentumID.current) cancelAnimationFrame(momentumID.current);
+      carousel.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", stopDragging);
     };
-  }, [checkScroll, startMomentum]);
+  }, [isClient, startMomentumScroll]);
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div className="w-full h-auto select-none">
       <div className="flex items-center justify-between mb-2.5">
         {title_href ? (
-          <Link
-            href={title_href}
-            aria-label="title link"
-            onClick={() => setRouteLoading(true)}
-            className="text-foreground-muted text-base font-semibold"
-          >
-            {title}
-          </Link>
+          <Link href={title_href} 
+            aria-label="title link" 
+            onClick={()=>{setRouteLoading(true)}}
+            className="text-foreground-muted text-base font-semibold">{title}</Link>
         ) : (
           <h2 className="text-foreground-muted text-base font-semibold">
-            {title}
-          </h2>
+          {title}
+        </h2>
         )}
         <div className="flex items-center gap-2">
           <Button
@@ -165,7 +188,9 @@ export default function GlobalCarousel<T>({
             disabled={!canScrollLeft}
             onClick={() => scroll("left")}
           >
-            <ChevronLeft className={`size-6 p-0.5 ${canScrollLeft ? "text-foreground" : "text-muted-foreground"}`} />
+            <ChevronLeft
+              className={`size-6 p-0.5 ${canScrollLeft ? "text-foreground" : "text-muted-foreground"}`}
+            />
             <span className="sr-only">Scroll left</span>
           </Button>
           <Button
@@ -182,20 +207,25 @@ export default function GlobalCarousel<T>({
             disabled={!canScrollRight}
             onClick={() => scroll("right")}
           >
-            <ChevronRight className={`size-6 p-0.5 ${canScrollRight ? "text-foreground" : "text-muted-foreground"}`} />
+            <ChevronRight
+              className={`size-6 p-0.5 ${canScrollRight ? "text-foreground" : "text-muted-foreground"}`}
+            />
             <span className="sr-only">Scroll right</span>
           </Button>
         </div>
       </div>
       <div
         ref={scrollRef}
-        className="flex gap-2 app-container-2 h-auto overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing"
+        className="
+          flex gap-2 app-container-2 h-auto overflow-x-auto no-scrollbar
+          cursor-grab active:cursor-grabbing
+        "
         onScroll={checkScroll}
       >
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <div key={index}>{renderItem(item, index)}</div>
         ))}
       </div>
-    </div>
+    </div >
   );
 }
