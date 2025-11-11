@@ -136,12 +136,14 @@ export default function SettingsTab() {
                               {option.label}
                             </span>
                             <Image
-                              height={16}
-                              width={16}
-                              src={option.icon}
+                              src={option.icon || "/placeholder-icon.png"} // fallback if icon is missing
                               alt={option.label}
+                              width={16}
+                              height={16}
+                              priority={true}   // small icons above the fold should load immediately
+                              quality={80}      // keep it sharp but small file size
                             />
-                          </FormLabel>
+                                                      </FormLabel>
                         </FormItem>
                       ))}
                   </RadioGroup>
