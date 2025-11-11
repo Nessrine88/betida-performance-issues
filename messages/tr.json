@@ -1,0 +1,539 @@
+{
+  "profile": {
+    "title": "VIP İlerlemen"
+  },
+  "unauthorized": {
+    "title": "Dünyanın En Büyük Online Casino ve Bahis Sitesi",
+    "signuptext": "Veya şununla kaydol",
+    "register": "Kaydol"
+  },
+  "playing": {
+    "title": "oynuyor"
+  },
+  "searchbar": {
+    "casino": "Casino",
+    "sports": "Spor",
+    "placeholder": "Arama yap"
+  },
+  "gamesSports": {
+    "trendingGames": "Trend Oyunlar",
+    "trendingSports": "Trend Sporlar",
+    "promotions": "Promosyonlar"
+  },
+  "betsTableTabs": {
+    "casino": "Casino Bahisleri",
+    "sports": "Spor Bahisleri",
+    "race-leaderboard": "Yarış Sıralaması"
+  },
+  "betsTableColumns": {
+    "game": "Oyun",
+    "user": "Kullanıcı",
+    "time": "Zaman",
+    "betAmount": "Bahis Miktarı",
+    "multiplier": "Çarpan",
+    "payout": "Ödeme"
+  },
+  "questionSectionTitle": { "title": "Hala Soruların Var mı?" },
+  "affiliateCampaigns": {
+    "title": "Kampanyalar",
+    "description": "Tüm kampanyalarınızın performansını aşağıdaki basit görünümde izleyin.",
+    "campaignHits": "Kampanya Tıklamaları",
+    "campaignHitsTooltip": "Kampanya Tıklamaları: Bu, belirli bir kampanyadan gelen tıklama veya ziyaret sayısını ifade eder.\n\n *Bu genel bakışta yer alan tüm veriler en az saatte bir güncellenir.",
+    "referredUsers": "Yönlendirilen Kullanıcılar",
+    "referredUsersTooltip": "Yönlendirilen Kullanıcılar: Bu, belirli kampanya üzerinden yönlendirilen tüm kullanıcıları ifade eder.\n\n *Bu genel bakışta yer alan tüm veriler en az saatte bir güncellenir.",
+    "firstTimeDeposits": "İlk Kez Para Yatıranlar",
+    "firstTimeDepositsTooltip": "İlk Kez Para Yatıranlar (FTD): Bu, kampanyanız üzerinden BETIDA’ya ilk para yatırma işlemini yapan yeni kullanıcıları gösterir.\n\n *Bu genel bakışta yer alan tüm veriler en az saatte bir güncellenir.",
+    "totalDeposits": "Toplam Para Yatırma",
+    "totalDepositsTooltip": "Toplam Para Yatırma: Şu anda aktif olan kampanyalarınız üzerinden yapılan tüm para yatırma işlemlerini ifade eder.\n\n *Bu genel bakışta yer alan tüm veriler en az saatte bir güncellenir.",
+    "overallCommission": "Toplam Komisyon",
+    "overallCommissionTooltip": "Toplam Komisyon: Şu anda aktif olan kampanyalarınız genelinde tahmini toplam komisyonu (USD cinsinden) ifade eder.\n\n *Bu genel bakışta yer alan tüm veriler en az saatte bir güncellenir.",
+    "emptyMessage": "Kampanya verisi bulunamadı.",
+    "loading": "Kampanyalar yükleniyor...",
+    "noCampaigns": "Kampanya Bulunamadı.",
+    "newCampaign": "Yeni Kampanya",
+    "dateCreated": "Oluşturulma Tarihi:",
+    "performanceSummary": "Performans Özeti",
+    "campaignCreatedDate": "Kampanya Oluşturulma Tarihi",
+    "hits": "Tıklamalar",
+    "commissionRate": "Komisyon Oranı",
+    "availableCommission": "Mevcut Komisyon",
+    "shareCampaign": "Kampanyayı Paylaş",
+    "campaignLink": "Kampanya Bağlantısı",
+    "campaignLinkCopied": "Kampanya bağlantısı kopyalandı!",
+    "campaignLinkError": "Kampanya bağlantısı kopyalanamadı",
+    "noCampaignLink": "Kampanya bağlantısı mevcut değil",
+    "exportCSV": "CSV Olarak Dışa Aktar",
+    "sort": {
+      "createdAtDesc": "Oluşturulma Tarihi: Yeniden Eskiye",
+      "createdAtAsc": "Oluşturulma Tarihi: Eskiden Yeniye",
+      "ftdHigh": "İlk Kez Para Yatıran Sayısı: Yüksekten Düşüğe",
+      "ftdLow": "İlk Kez Para Yatıran Sayısı: Düşükten Yükseğe",
+      "commissionHigh": "Toplam Komisyon: Yüksekten Düşüğe",
+      "commissionLow": "Toplam Komisyon: Düşükten Yükseğe",
+      "referredHigh": "Yönlendirilen Kullanıcılar: Yüksekten Düşüğe",
+      "referredLow": "Yönlendirilen Kullanıcılar: Düşükten Yükseğe"
+    }
+  },
+  "affiliateCommission": {
+    "title": "Komisyon",
+    "description": "Yönlendirmelerinizle kazandığınız gelirleri görüntüleyin ve takip edin. Bu bölüm, komisyonlarınızın ve ödemelerinizin net bir dökümünü sunar — kazançlarınız üzerinde tam kontrol sağlar.",
+    "currencies": "Para Birimleri",
+    "availableCommission": "Mevcut Komisyon",
+    "withdrawnCommission": "Çekilen Komisyon",
+    "lifetimeCommission": "Ömür Boyu Komisyon",
+    "emptyMessage": "Komisyon verisi bulunamadı."
+  },
+  "affiliateReferredUsers": {
+    "title": "Yönlendirilen Kullanıcılar",
+    "description": "Yönlendirme bağlantınız üzerinden katılan tüm kullanıcıları takip edin. Burada onların aktivitelerini ve oyunlarını görebilirsiniz — ağınızın büyümesini ve yönlendirmelerden kazandığınız avantajları izlemeyi kolaylaştırır.",
+    "firstTimeDeposits": "İlk Kez Para Yatıranlar (FTD)",
+    "firstTimeDepositsTooltip": "İlk Kez Para Yatıranlar (FTD): Bu, kampanyanız üzerinden BETIDA’ya ilk para yatırma işlemini yapan yeni kullanıcıları gösterir.\n\n *Bu sayfadaki tüm veriler en az günde bir kez güncellenir.\n\n *Her kampanya için yalnızca şu anda aktif kullanıcılar gösterilir. Kampanyadan ayrılan kullanıcılar artık gösterilmez.",
+    "monthlyFTD": "Aylık FTD",
+    "monthlyFTDTooltip": "Aylık FTD: Geçen ay kampanyanız üzerinden ilk para yatırma işlemini yapan tüm yeni kullanıcıların toplamını gösterir.\n\n *Bu sayfadaki tüm veriler en az günde bir kez güncellenir.\n\n *Her kampanya için yalnızca şu anda aktif kullanıcılar gösterilir. Kampanyadan ayrılan kullanıcılar artık gösterilmez.",
+    "totalDeposits": "Toplam Para Yatırma",
+    "totalDepositsTooltip": "Toplam Para Yatırma: Şu anda aktif olan kampanyalarınız üzerinden yapılan tüm para yatırma işlemlerini ifade eder.\n\n *Bu sayfadaki tüm veriler en az günde bir kez güncellenir.\n\n *Her kampanya için yalnızca şu anda aktif kullanıcılar gösterilir. Kampanyadan ayrılan kullanıcılar artık gösterilmez.",
+    "vipUsers": "VIP Kullanıcılar",
+    "vipUsersTooltip": "VIP Kullanıcılar: VIP seviyesi Platinum 1’den yüksek olan oyuncuları temsil eder.\n\n *Bu sayfadaki tüm veriler en az günde bir kez güncellenir.\n\n *Her kampanya için yalnızca şu anda aktif kullanıcılar gösterilir. Kampanyadan ayrılan kullanıcılar artık gösterilmez.",
+    "totalReferredUsers": "Toplam Yönlendirilen Kullanıcılar:",
+    "emptyMessage": "Kampanya verisi bulunamadı.",
+    "loading": "Yükleniyor...",
+    "noReferredUsers": "Yönlendirilen Kullanıcı Yok.",
+    "dateCreated": "Oluşturulma Tarihi:",
+    "performanceSummary": "Performans Özeti",
+    "userCreatedDate": "Kullanıcı Oluşturulma Tarihi",
+    "userHits": "Kullanıcı Tıklamaları",
+    "referredUsers": "Yönlendirilen Kullanıcılar",
+    "commissionRate": "Komisyon Oranı",
+    "overallCommission": "Toplam Komisyon",
+    "availableCommission": "Mevcut Komisyon",
+    "shareUser": "Kullanıcıyı Paylaş",
+    "userLink": "Kullanıcı Bağlantısı",
+    "userCodeCopied": "Kullanıcı kodu kopyalandı!",
+    "failedToCopyUserCode": "Kullanıcı kodu kopyalanamadı",
+    "noUserCodeAvailable": "Kopyalanacak kullanıcı kodu yok",
+    "exportCSV": "CSV Olarak Dışa Aktar",
+    "sort": {
+      "depositsHigh": "Toplam Para Yatırma: Yüksekten Düşüğe",
+      "depositsLow": "Toplam Para Yatırma: Düşükten Yükseğe",
+      "commissionHigh": "Toplam Komisyon: Yüksekten Düşüğe",
+      "commissionLow": "Toplam Komisyon: Düşükten Yükseğe",
+      "registeredDesc": "Kayıt Tarihi: Yeniden Eskiye",
+      "registeredAsc": "Kayıt Tarihi: Eskiden Yeniye",
+      "lastDepositDesc": "Son Para Yatırma Tarihi: Yeniden Eskiye",
+      "lastDepositAsc": "Son Para Yatırma Tarihi: Eskiden Yeniye"
+    }
+  },
+  "affiliateFaq": {
+    "generalTab": "Genel",
+    "affiliateProgramTab": "Ortaklık Programı",
+    "earningsTab": "Kazançlar",
+    "loading": "Yükleniyor..."
+  },
+  "termsOfService": {
+    "title": "Şartlar ve Koşullar",
+    "noContent": "İçerik mevcut değil"
+  },
+  "cookiesPolicy": {
+    "title": "Çerez Politikası"
+  },
+  "depositBonusRequirements": {
+    "title": "Para Yatırma Bonusu Şartları"
+  },
+  "affiliateTerms": {
+    "title": "Ortaklık Şartları"
+  },
+  "antiMoneyLaundering": {
+    "title": "Kara Para Aklama ve Terörizm Finansmanı ile Mücadele Beyanı"
+  },
+  "coinMixing": {
+    "title": "Kripto Karıştırma Politikası"
+  },
+  "pokerCardRoomRules": {
+    "title": "BETIDA Poker Odası Kuralları"
+  },
+  "pokerRefundPolicy": {
+    "title": "BETIDA Poker Turnuva İptal ve İade Politikası"
+  },
+  "pokerSecurityEcologyPolicy": {
+    "title": "BETIDA Poker Güvenlik ve Ekoloji Politikası"
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası"
+  },
+  "providers": {
+    "title": "Sağlayıcı Kullanılabilirlik Politikası"
+  },
+  "racingRules": {
+    "title": "Yarış Kuralları"
+  },
+  "sportsbook": {
+    "title": "Spor Bahis Kuralları ve Politikaları"
+  },
+  "settingsAPI": {
+    "tokenCreationTitle": "Token Oluşturma",
+    "disclaimer": "Uyarı: betida.dev destek ekibi asla bu token'ı sizden istemez. Bu token'ı başkalarıyla paylaşırsanız, hesabınıza tam erişim izni vermiş olursunuz.",
+    "tokenLabel": "Token",
+    "doNotShare": "Bunu paylaşmayın!",
+    "reveal": "Göster",
+    "revealed": "Gösterildi",
+    "activeTokensTitle": "Aktif Token'lar",
+    "activeTokensDescription": "BETIDA şu anda kapalı bir API ile çalışır ve bu nedenle bu token'ların kullanımı çok sınırlıdır. \"Token Oluşturma\" formunu kullanarak yeni bir API token'ı göstermeyi her seçtiğinizde, yeni bir bağımsız oturum başlatmış olursunuz. Eski token'lar, tüm token'ları devre dışı bırakmak için tıklayana kadar devre dışı kalmaz."
+  },
+  "offersPage": {
+    "welcomeOfferTitle": "Hoş Geldin Bonusu",
+    "welcomeOfferDescription": "Hoş geldin bonusu kodunuzu girerek bonusunuzu talep edin. Bu yalnızca yeni kullanıcılar için geçerlidir.",
+    "welcomeButtonText": "Hoş Geldin Bonusunu Talep Et",
+    "welcomeSuccess": "Hoş geldin bonusu kodu başarıyla gönderildi!",
+    "bonusDropTitle": "Bonus Düşüşü",
+    "bonusDropDescription": "Ekstra ödüller kazanmak için bonus düşüşü kodunuzu girin. Uygun kodlar için promosyonlarınızı kontrol edin.",
+    "bonusButtonText": "Bonus Düşüşünü Kullan",
+    "bonusSuccess": "Bonus düşüşü kodu başarıyla gönderildi!",
+    "codeLabel": "Kod",
+    "submitError": "Kod gönderilemedi. Lütfen tekrar deneyin."
+  },
+  "racesRaffles": {
+    "racesAndRaffleTitle": "Yarışlar ve çekiliş",
+    "leaderboard": "Sıralama",
+    "notEnteredYet": "Henüz katılmadın",
+    "zeroTickets": "0 Bilet",
+    "noTicketsYet": "Henüz bilet yok",
+    "viewTickets": "Biletlerini görüntüle"
+  },
+  "weeklyRaffle": {
+    "buttonText": "Biletlerini görüntüle",
+    "nextTicket": "Sonraki bilet",
+    "yourEntries": "Katılım sayın:"
+  },
+  "hundredRace": {
+    "title": "$100K Yarış",
+    "yourPosition": "Sıralaman",
+    "yourCurrentPrize": "Mevcut Ödülün",
+    "yourWagered": "Bahis Yaptığın"
+  },
+  "ticketModal": {
+    "title": "Biletlerin",
+    "totalEntries": "Toplam Katılım",
+    "nextDrawIn": "Sonraki Çekiliş:",
+    "ticketList": "Bilet Listesi",
+    "noTickets": "Bilet mevcut değil",
+    "emptyMessage": "Henüz biletin yok. Katılım kazanmak için bahis yapmaya başla!",
+    "emptyButtonText": "Çekilişe Geri Dön"
+  },
+  "statisticsModal": {
+    "title": "İstatistikler",
+    "typeLabel": "Tür",
+    "currencyLabel": "Para Birimi",
+    "requestStats": "İstatistik talep et"
+  },
+  "transactionsSidebar": {
+    "title": "İşlemler",
+    "deposits": "Para Yatırma",
+    "withdrawals": "Para Çekme",
+    "bonuses": "Bonuslar",
+    "raffles": "Çekilişler",
+    "races": "Yarışlar",
+    "other": "Diğer"
+  },
+  "transactionTabs": {
+    "cryptoTab": "Kripto",
+    "localCurrency": "Yerel Para Birimi",
+    "allBonuses": "Tüm Bonuslar",
+    "manual": "Manuel",
+    "promotional": "Promosyon",
+    "drop": "Düşüş",
+    "rakeback": "Geri Ödeme",
+    "reload": "Yeniden Yükleme",
+    "racePayout": "Yarış Ödemesi",
+    "sportsbookPromotion": "Spor Bahis Promosyonu",
+    "allOther": "Tüm Diğer",
+    "tipsReceived": "Alınan Bahşiş",
+    "vaultDeposit": "Kasa Yatırma",
+    "vaultWithdrawal": "Kasa Çekme",
+    "campaignWithdrawal": "Kampanya Çekme",
+    "rainReceived": "Alınan Yağmur",
+    "rainSent": "Gönderilen Yağmur"
+  },
+  "vipClub": {
+    "liveSection": {
+      "title": "Canlı, 24 saat müşteri desteği",
+      "description": "Gerçek insanlar tarafından gerçek destek. Anlık canlı sohbet ve e-posta yoluyla size yardımcı olmak için buradayız.",
+      "button": "Bize Ulaşın"
+    },
+    "BETIDAVipRankingLevel": {
+      "title": "BETIDA VIP sıralama sistemi"
+    },
+    "BETIDAVipRankingLevel2": {
+      "title": "BETIDA VIP sıralama sistemi"
+    },
+    "type": {
+      "general": {
+        "title": "Genel"
+      },
+      "benefits": {
+        "title": "Avantajlar"
+      },
+      "vipHosts": {
+        "title": "VIP Hostlar"
+      }
+    }
+  },
+  "vip": {
+    "sections": {
+      "0": {
+        "title": "VIP Avantajları"
+      },
+      "1": {
+        "title": "VIP Host"
+      }
+    }
+  },
+  "depositLimits": {
+    "addLimitButton": "Limit Ekle",
+    "emptyMessage": "Henüz limit belirlemediniz",
+    "toastComingSoon": "Limit ekleme özelliği yakında gelecek!"
+  },
+  "gamblingLimits": {
+    "BETIDASmart": "Limitler hakkında daha fazla bilgi ve detay için",
+    "BETIDASmartLink": "BETIDA Smart",
+    "limitTypeLabel": "Limit Türü",
+    "limitAmountLabel": "Limit Miktarı*",
+    "limitPeriodLabel": "Limit Süresi",
+    "selectLimitType": "Limit türü seç",
+    "selectLimitPeriod": "Limit süresi seç",
+    "lossOption": "Kayıp",
+    "wagerOption": "Bahis",
+    "dayOption": "Gün",
+    "weekOption": "Hafta",
+    "monthOption": "Ay",
+    "updateNotice": "Güncellemenin etkili olması için lütfen 30 saniyeye kadar bekleyin.",
+    "addLimit": "Limit Ekle",
+    "adding": "Ekleniyor...",
+    "successToast": "Kumar limiti başarıyla eklendi!",
+    "errorToast": "Limit eklenemedi",
+    "genericError": "Form gönderilirken bir hata oluştu",
+    "positiveNumberError": "Limit miktarı pozitif bir sayı olmalıdır"
+  },
+  "selfExclusion": {
+    "title": "Kendi Kendini Dışlama Politikası",
+    "learnMore": "Daha fazla bilgi için",
+    "request": "Talep Et",
+    "modal": {
+      "title": "Kendi Değerlendirme",
+      "yes": "Evet",
+      "no": "Hayır",
+      "progress": "Soru {current} / {total}"
+    }
+  },
+  "selfExclusionModal": {
+    "duration": "Süre",
+    "selectDuration": "Bir süre seçin",
+    "next": "İleri",
+    "disclaimer": "Hesabınız hemen \"sadece çekim\" moduna alınacaktır.",
+    "confirmMessage": "stake.com'dan oyun molası başlatmak istediğinizden emin misiniz? Burada verilen karar kesindir ve geri alınamaz. Oyun molasını onaylayarak, belirlediğiniz süre boyunca stake.com'da oynamanız engellenecektir.",
+    "confirm": "Onayla",
+    "confirmed": "Oyun molası {duration} için başlatıldı."
+  },
+  "selfAssessment": {
+    "toast": "Kendi Değerlendirme başlatıldı",
+    "button": "Kendi Değerlendirmeyi Başlat",
+    "contactSupport": "Destekle İletişime Geç",
+    "supportSoon": "Destekle iletişim özelliği yakında gelecek!",
+    "learnMore": "Kendi değerlendirme hakkında daha fazla bilgi"
+  },
+  "selfAssessmentModal": {
+    "title": "Kendi Değerlendirme",
+    "yes": "Evet",
+    "no": "Hayır",
+    "progress": "Soru {current} / {total}"
+  },
+  "selfAssessmentResult": {
+    "title": "Kendi Değerlendirme Anketi",
+    "subtitle": "Sonuçlarınız Destek Gerektirebileceğinizi Öneriyor",
+    "description": "Yanıtlarınıza göre, refahınızı desteklemek için sorumlu kumar araçları kurmanızı şiddetle tavsiye ederiz.",
+    "supportInfo": "Hesabınıza sorumlu kumar aracı kurma konusunda yardıma ihtiyacınız olursa canlı destek ekibimizle iletişime geçin.",
+    "contactSupport": "Destekle İletişime Geç",
+    "learnMore": "Daha Fazla Bilgi",
+    "done": "Tamam",
+    "contactSoon": "Canlı destek kısa süre içinde size yardımcı olacak.",
+    "submitted": "Kendi değerlendirme başarıyla gönderildi!"
+  },
+  "monthlyBudgetCalculator": {
+    "title": "Aylık Bütçe Hesaplayıcı",
+    "confidential": "Bilgileriniz gizlidir ve BETIDA tarafından görülemez.",
+    "incomeSection": "Gelir",
+    "wagesLabel": "Kesintilerden sonraki maaş",
+    "pensionsLabel": "Emekli maaşı",
+    "benefitsLabel": "Yardımlar",
+    "otherIncomeLabel": "Diğer gelir",
+    "totalIncomeLabel": "Toplam gelir",
+    "expensesSection": "Giderler",
+    "rentMortgageLabel": "Kira/ipotek",
+    "utilityBillsLabel": "Fatura giderleri",
+    "loansCreditLabel": "Kredi/borç",
+    "otherExpensesLabel": "Diğer giderler",
+    "totalExpensesLabel": "Toplam giderler",
+    "disposableIncomeTitle": "Kullanılabilir Gelir"
+  },
+  "BlogDetails": {
+    "notFound": "Blog bulunamadı",
+    "backToBlog": "Bloga geri dön",
+    "blog": "Blog",
+    "publishedOn": "Yayınlanma",
+    "at": "saat",
+    "goTo": "{platform} sayfasına git",
+    "goToCategory": "{category} kategorisine git"
+  },
+  "BlogPage": {
+    "title": "Blog",
+    "noData": "Veri bulunamadı",
+    "pageOf": "Sayfa {current} / {total}",
+    "prevPage": "Önceki Sayfa",
+    "nextPage": "Sonraki Sayfa"
+  },
+  "BlogCard": {
+    "publishedAt": "Yayınlandı",
+    "untitled": "Başlıksız Blog"
+  },
+  "RelatedBlogs": {
+    "title": "Diğer Popüler Makaleler",
+    "goTo": "{title} bloguna git"
+  },
+  "SponsorshipPage": {
+    "loading": "Yükleniyor...",
+    "seeDetails": "Detayları Gör"
+  },
+  "Promotions": {
+    "title": "Promosyonlar",
+    "tabs": {
+      "allPromotions": "Tüm Promosyonlar",
+      "casino": "Casino",
+      "sports": "Spor",
+      "community": "Topluluk",
+      "poker": "Poker"
+    }
+  },
+  "PromotionsPage": {
+    "noData": "Promosyon bulunamadı",
+    "pageOf": "Sayfa {current} / {total}",
+    "prevPage": "Önceki sayfa",
+    "nextPage": "Sonraki sayfa"
+  },
+  "PromotionsCard": {
+    "untitled": "Başlıksız Promosyon",
+    "endsAt": "Bitiş tarihi"
+  },
+  "CasinoPromotions": {
+    "noData": "Casino promosyonu bulunamadı",
+    "pageOf": "Sayfa {current} / {total}",
+    "prevPage": "Önceki sayfa",
+    "nextPage": "Sonraki sayfa"
+  },
+  "SportsPromotions": {
+    "noData": "Spor promosyonu bulunamadı",
+    "pageOf": "Sayfa {current} / {total}",
+    "prevPage": "Önceki sayfa",
+    "nextPage": "Sonraki sayfa"
+  },
+  "CommunityPromotions": {
+    "noData": "Topluluk promosyonu bulunamadı",
+    "pageOf": "Sayfa {current} / {total}",
+    "prevPage": "Önceki sayfa",
+    "nextPage": "Sonraki sayfa"
+  },
+  "PokerPromotions": {
+    "noData": "Poker promosyonu bulunamadı",
+    "pageOf": "Sayfa {current} / {total}",
+    "prevPage": "Önceki sayfa",
+    "nextPage": "Sonraki sayfa"
+  },
+  "PromotionsDetails": {
+    "noRelatedPromotions": "İlgili promosyon bulunmamaktadır.",
+    "promotions": "Promosyonlar",
+    "notFound": "Promosyon bulunamadı",
+    "untitled": "Başlıksız Promosyon",
+    "howToEnter": "Nasıl Katılınır",
+    "selectedGames": "Seçili Oyunlar",
+    "prizesBreakdown": "Ödül Dağılımı",
+    "position": "Sıra",
+    "prize": "Ödül",
+    "noPrize": "Ödül yok",
+    "noPrizes": "Ödül dağılımı mevcut değil.",
+    "leaderboard": "Liderlik Tablosu",
+    "user": "Kullanıcı",
+    "result": "Sonuç",
+    "noLeaderboard": "Liderlik tablosu verisi mevcut değil.",
+    "terms": "Şartlar ve Koşullar",
+    "joinNow": "Hemen Katıl",
+    "relatedPromotions": "Diğer Popüler Promosyonlar",
+    "backTo": "{category} geri dön"
+  },
+  "footer": {
+    "sections": {
+      "Casino": "Kumarhane",
+      "Sports": "Spor",
+      "Support": "Destek",
+      "About Us": "Hakkımızda",
+      "Payment Info": "Ödeme Bilgileri",
+      "FAQ": "SSS"
+    },
+    "links": {
+      "casinoGames": "Kumarhane Oyunları",
+      "slots": "Slotlar",
+      "liveCasino": "Canlı Kumarhane",
+      "roulette": "Rulet",
+      "blackjack": "Blackjack",
+      "poker": "Poker",
+      "publishers": "Yayıncılar",
+      "promosCompetitions": "Promosyonlar ve Yarışmalar",
+      "betidaEngine": "BETIDA Motoru",
+      "sportsbook": "Spor Bahisleri",
+      "liveSports": "Canlı Spor",
+      "soccer": "Futbol",
+      "basketball": "Basketbol",
+      "tennis": "Tenis",
+      "betBonuses": "Bahis Bonusları",
+      "sportsRules": "Spor Kuralları",
+      "racingRules": "Yarış Kuralları",
+      "helpCenter": "Yardım Merkezi",
+      "fairness": "Adillik",
+      "gamblingHelpline": "Kumar Yardım Hattı",
+      "selfExclusion": "Kendi Kendini Hariç Tutma",
+      "lawEnforcementRequest": "Yasal Uygulama Talebi",
+      "vipClub": "VIP Kulübü",
+      "affiliate": "Ortaklık",
+      "privacyPolicy": "Gizlilik Politikası",
+      "amlPolicy": "AML Politikası",
+      "termsOfService": "Hizmet Şartları",
+      "depositWithdrawals": "Para Yatırma ve Çekme",
+      "currencyGuide": "Para Birimi Rehberi",
+      "cryptoGuide": "Kripto Rehberi",
+      "supportedCrypto": "Desteklenen Kriptolar",
+      "howToUseVault": "Kasa Nasıl Kullanılır",
+      "howMuchToBet": "Ne Kadar Bahis Yapmalısınız",
+      "howToGuides": "Nasıl Yapılır Kılavuzları",
+      "onlineCasinoGuide": "Online Kumarhane Rehberi",
+      "sportsBettingGuide": "Spor Bahisleri Rehberi",
+      "liveStreamSports": "Sporları Canlı İzleme",
+      "betidaVipGuide": "BETIDA VIP Rehberi",
+      "houseEdgeGuide": "Kumarhane Avantajı Rehberi"
+    },
+    "followFacebook": "Bizi Facebook'ta takip edin",
+    "followX": "Bizi X'te takip edin",
+    "followMessage": "Bizi Mesaj'da takip edin",
+    "followInstagram": "Bizi Instagram'da takip edin",
+    "followYoutube": "Bizi YouTube'da takip edin",
+    "followTiktok": "Bizi TikTok'ta takip edin",
+    "followLinkedin": "Bizi LinkedIn'de takip edin",
+    "copyright": "© 2025 brandname.com | Tüm Hakları Saklıdır.",
+    "ownership": "BETIDA, Medium Nam ultrices mi sed sem numara: 3241231 tarafından sahip olunur ve işletilir, kayıtlı adres: Maecenas at est interdum. Ödeme acentesi şirketleri Ut pharetra turpis eu justo ve Ut Justo Limited'dir. Bize support@brandname.com adresinden ulaşın.",
+    "responsibleGambling": "BETIDA sorumlu kumara bağlıdır, daha fazla bilgi için ziyaret edin",
+    "btcPrice": "1 BTC = $118,623.96"
+  },
+  "PublishersPage": {
+    "title": "Yayıncılar",
+    "noData": "Hiç yayıncı bulunamadı",
+    "pageOf": "{total} sayfadan {current}. sayfa",
+    "prevPage": "Önceki sayfa",
+    "nextPage": "Sonraki sayfa"
+  }
+}

@@ -1,0 +1,539 @@
+{
+  "profile": {
+    "title": "Tu Progreso VIP"
+  },
+  "unauthorized": {
+    "title": "El Casino y Casa de Apuestas Online Más Grande del Mundo",
+    "signuptext": "O regístrate con",
+    "register": "Registrarse"
+  },
+  "playing": {
+    "title": "jugando"
+  },
+  "searchbar": {
+    "casino": "Casino",
+    "sports": "Deportes",
+    "placeholder": "Busca tu"
+  },
+  "gamesSports": {
+    "trendingGames": "Juegos en Tendencia",
+    "trendingSports": "Deportes en Tendencia",
+    "promotions": "Promociones"
+  },
+  "betsTableTabs": {
+    "casino": "Apuestas de Casino",
+    "sports": "Apuestas Deportivas",
+    "race-leaderboard": "Clasificación de Carrera"
+  },
+  "betsTableColumns": {
+    "game": "Juego",
+    "user": "Usuario",
+    "time": "Hora",
+    "betAmount": "Cantidad Apostada",
+    "multiplier": "Multiplicador",
+    "payout": "Pago"
+  },
+  "questionSectionTitle": { "title": "¿Aún tienes preguntas?" },
+  "affiliateCampaigns": {
+    "title": "Campañas",
+    "description": "Consulta el rendimiento de todas tus campañas en una vista simple a continuación.",
+    "campaignHits": "Clics en Campaña",
+    "campaignHitsTooltip": "Clics en Campaña: Se refiere al número de clics o visitas de usuarios desde una campaña específica.\n\n *Todos los datos mostrados en esta vista se actualizan al menos una vez por hora.",
+    "referredUsers": "Usuarios Referidos",
+    "referredUsersTooltip": "Usuarios Referidos: Se refiere a todos los usuarios referidos a través de la campaña específica.\n\n *Todos los datos mostrados en esta vista se actualizan al menos una vez por hora.",
+    "firstTimeDeposits": "Primeros Depósitos",
+    "firstTimeDepositsTooltip": "Primeros Depósitos (FTD): Muestra a los nuevos usuarios que realizan su primer depósito en BETIDA a través de tu campaña.\n\n *Todos los datos mostrados en esta vista se actualizan al menos una vez por hora.",
+    "totalDeposits": "Depósitos Totales",
+    "totalDepositsTooltip": "Depósitos Totales: Se refiere a todos los depósitos realizados en tus campañas activas.\n\n *Todos los datos mostrados en esta vista se actualizan al menos una vez por hora.",
+    "overallCommission": "Comisión Total",
+    "overallCommissionTooltip": "Comisión Total: Se refiere a la comisión total estimada (en USD) en todas tus campañas activas.\n\n *Todos los datos mostrados en esta vista se actualizan al menos una vez por hora.",
+    "emptyMessage": "No se encontraron datos de campaña.",
+    "loading": "Cargando campañas...",
+    "noCampaigns": "No se encontraron campañas.",
+    "newCampaign": "Nueva Campaña",
+    "dateCreated": "Fecha de Creación:",
+    "performanceSummary": "Resumen de Rendimiento",
+    "campaignCreatedDate": "Fecha de Creación de la Campaña",
+    "hits": "Clics",
+    "commissionRate": "Tasa de Comisión",
+    "availableCommission": "Comisión Disponible",
+    "shareCampaign": "Compartir Campaña",
+    "campaignLink": "Enlace de Campaña",
+    "campaignLinkCopied": "¡Enlace de campaña copiado!",
+    "campaignLinkError": "Error al copiar el enlace de campaña",
+    "noCampaignLink": "No hay enlace de campaña disponible",
+    "exportCSV": "Exportar CSV",
+    "sort": {
+      "createdAtDesc": "Fecha de Creación: Más reciente a más antiguo",
+      "createdAtAsc": "Fecha de Creación: Más antiguo a más reciente",
+      "ftdHigh": "Número de Primeros Depósitos: De mayor a menor",
+      "ftdLow": "Número de Primeros Depósitos: De menor a mayor",
+      "commissionHigh": "Comisión Total: De mayor a menor",
+      "commissionLow": "Comisión Total: De menor a mayor",
+      "referredHigh": "Usuarios Referidos: De mayor a menor",
+      "referredLow": "Usuarios Referidos: De menor a mayor"
+    }
+  },
+  "affiliateCommission": {
+    "title": "Comisión",
+    "description": "Consulta y sigue las ganancias generadas por tus referidos. Esta sección ofrece un desglose claro de tus comisiones y pagos — manteniéndote en control de tus ingresos.",
+    "currencies": "Monedas",
+    "availableCommission": "Comisión Disponible",
+    "withdrawnCommission": "Comisión Retirada",
+    "lifetimeCommission": "Comisión de por Vida",
+    "emptyMessage": "No se encontraron datos de comisión."
+  },
+  "affiliateReferredUsers": {
+    "title": "Usuarios Referidos",
+    "description": "Sigue a todos los usuarios que se unieron a través de tu enlace de referido. Aquí puedes ver su actividad y juego — facilitando el monitoreo del crecimiento de tu red y los beneficios que obtienes de los referidos.",
+    "firstTimeDeposits": "Primeros Depósitos (FTD)",
+    "firstTimeDepositsTooltip": "Primeros Depósitos (FTD): Muestra a los nuevos usuarios que realizan su primer depósito en BETIDA a través de tu campaña.\n\n *Todos los datos en esta página se actualizan al menos una vez al día.\n\n *Solo se muestran los usuarios actualmente activos en cada campaña. Los usuarios que abandonaron la campaña ya no se mostrarán.",
+    "monthlyFTD": "FTD Mensual",
+    "monthlyFTDTooltip": "FTD Mensual: Muestra el total de nuevos usuarios que hicieron su primer depósito en BETIDA a través de tu campaña en el último mes.\n\n *Todos los datos en esta página se actualizan al menos una vez al día.\n\n *Solo se muestran los usuarios actualmente activos en cada campaña. Los usuarios que abandonaron la campaña ya no se mostrarán.",
+    "totalDeposits": "Depósitos Totales",
+    "totalDepositsTooltip": "Depósitos Totales: Se refiere a todos los depósitos realizados en tus campañas activas.\n\n *Todos los datos en esta página se actualizan al menos una vez al día.\n\n *Solo se muestran los usuarios actualmente activos en cada campaña. Los usuarios que abandonaron la campaña ya no se mostrarán.",
+    "vipUsers": "Usuarios VIP",
+    "vipUsersTooltip": "Usuarios VIP: Representan a jugadores con nivel VIP superior a Platino 1.\n\n *Todos los datos en esta página se actualizan al menos una vez al día.\n\n *Solo se muestran los usuarios actualmente activos en cada campaña. Los usuarios que abandonaron la campaña ya no se mostrarán.",
+    "totalReferredUsers": "Total de Usuarios Referidos:",
+    "emptyMessage": "No se encontraron datos de campaña.",
+    "loading": "Cargando...",
+    "noReferredUsers": "No hay usuarios referidos.",
+    "dateCreated": "Fecha de Creación:",
+    "performanceSummary": "Resumen de Rendimiento",
+    "userCreatedDate": "Fecha de Creación del Usuario",
+    "userHits": "Clics del Usuario",
+    "referredUsers": "Usuarios Referidos",
+    "commissionRate": "Tasa de Comisión",
+    "overallCommission": "Comisión Total",
+    "availableCommission": "Comisión Disponible",
+    "shareUser": "Compartir Usuario",
+    "userLink": "Enlace del Usuario",
+    "userCodeCopied": "¡Código de usuario copiado!",
+    "failedToCopyUserCode": "Error al copiar el código de usuario",
+    "noUserCodeAvailable": "No hay código de usuario disponible para copiar",
+    "exportCSV": "Exportar CSV",
+    "sort": {
+      "depositsHigh": "Depósitos Totales: De mayor a menor",
+      "depositsLow": "Depósitos Totales: De menor a mayor",
+      "commissionHigh": "Comisión Total: De mayor a menor",
+      "commissionLow": "Comisión Total: De menor a mayor",
+      "registeredDesc": "Registrado: Más reciente a más antiguo",
+      "registeredAsc": "Registrado: Más antiguo a más reciente",
+      "lastDepositDesc": "Último Depósito: Más reciente a más antiguo",
+      "lastDepositAsc": "Último Depósito: Más antiguo a más reciente"
+    }
+  },
+  "affiliateFaq": {
+    "generalTab": "General",
+    "affiliateProgramTab": "Programa de Afiliados",
+    "earningsTab": "Ganancias",
+    "loading": "Cargando..."
+  },
+  "termsOfService": {
+    "title": "Términos y Condiciones",
+    "noContent": "No hay contenido disponible"
+  },
+  "cookiesPolicy": {
+    "title": "Política de Cookies"
+  },
+  "depositBonusRequirements": {
+    "title": "Requisitos de Bono por Depósito"
+  },
+  "affiliateTerms": {
+    "title": "Términos de Afiliados"
+  },
+  "antiMoneyLaundering": {
+    "title": "Declaración contra el Lavado de Dinero y Financiamiento del Terrorismo"
+  },
+  "coinMixing": {
+    "title": "Política de Mezcla de Criptomonedas"
+  },
+  "pokerCardRoomRules": {
+    "title": "Reglas de la Sala de Póker BETIDA"
+  },
+  "pokerRefundPolicy": {
+    "title": "Política de Cancelación y Reembolso de Torneos de Póker BETIDA"
+  },
+  "pokerSecurityEcologyPolicy": {
+    "title": "Política de Seguridad y Ecología de Póker BETIDA"
+  },
+  "privacy": {
+    "title": "Política de Privacidad"
+  },
+  "providers": {
+    "title": "Política de Disponibilidad de Proveedores"
+  },
+  "racingRules": {
+    "title": "Reglas de Carreras"
+  },
+  "sportsbook": {
+    "title": "Reglas y Políticas de Apuestas Deportivas"
+  },
+  "settingsAPI": {
+    "tokenCreationTitle": "Creación de Token",
+    "disclaimer": "Advertencia: el soporte de betida.dev nunca te pedirá este token. Al compartir este token con otros, les estás otorgando acceso completo a tu cuenta.",
+    "tokenLabel": "Token",
+    "doNotShare": "¡No compartas esto!",
+    "reveal": "Mostrar",
+    "revealed": "Mostrado",
+    "activeTokensTitle": "Tokens Activos",
+    "activeTokensDescription": "BETIDA opera actualmente con una API cerrada, por lo que el uso de estos tokens es muy limitado. Cada vez que eliges mostrar un nuevo token API usando el formulario \"Creación de Token\", inicias una nueva sesión independiente. Los tokens antiguos no se desactivan hasta que hagas clic para desactivar todos los tokens."
+  },
+  "offersPage": {
+    "welcomeOfferTitle": "Oferta de Bienvenida",
+    "welcomeOfferDescription": "Ingresa tu código de oferta de bienvenida para reclamar tu bono. Disponible solo para nuevos usuarios.",
+    "welcomeButtonText": "Reclamar Oferta de Bienvenida",
+    "welcomeSuccess": "¡Código de oferta de bienvenida enviado con éxito!",
+    "bonusDropTitle": "Bono Drop",
+    "bonusDropDescription": "Ingresa tu código de bono drop para canjear recompensas adicionales. Revisa tus promociones para códigos elegibles.",
+    "bonusButtonText": "Canjear Bono Drop",
+    "bonusSuccess": "¡Código de bono drop enviado con éxito!",
+    "codeLabel": "Código",
+    "submitError": "Error al enviar el código. Por favor, inténtalo de nuevo."
+  },
+  "racesRaffles": {
+    "racesAndRaffleTitle": "Carreras y sorteos",
+    "leaderboard": "Clasificación",
+    "notEnteredYet": "Aún no has participado",
+    "zeroTickets": "0 Entradas",
+    "noTicketsYet": "Aún no tienes entradas",
+    "viewTickets": "Ver tus entradas"
+  },
+  "weeklyRaffle": {
+    "buttonText": "Ver tus entradas",
+    "nextTicket": "Siguiente entrada",
+    "yourEntries": "Tus entradas:"
+  },
+  "hundredRace": {
+    "title": "Carrera de $100K",
+    "yourPosition": "Tu Posición",
+    "yourCurrentPrize": "Tu Premio Actual",
+    "yourWagered": "Tu Apostado"
+  },
+  "ticketModal": {
+    "title": "Tus Entradas",
+    "totalEntries": "Total de Participaciones",
+    "nextDrawIn": "Siguiente Sorteo En:",
+    "ticketList": "Lista de Entradas",
+    "noTickets": "No hay entradas disponibles",
+    "emptyMessage": "¡Aún no tienes entradas! ¡Comienza a apostar para ganar participaciones!",
+    "emptyButtonText": "Volver al Sorteo"
+  },
+  "statisticsModal": {
+    "title": "Estadísticas",
+    "typeLabel": "Tipo",
+    "currencyLabel": "Moneda",
+    "requestStats": "Solicitar estadísticas"
+  },
+  "transactionsSidebar": {
+    "title": "Transacciones",
+    "deposits": "Depósitos",
+    "withdrawals": "Retiros",
+    "bonuses": "Bonos",
+    "raffles": "Sorteos",
+    "races": "Carreras",
+    "other": "Otros"
+  },
+  "transactionTabs": {
+    "cryptoTab": "Cripto",
+    "localCurrency": "Moneda Local",
+    "allBonuses": "Todos los Bonos",
+    "manual": "Manual",
+    "promotional": "Promocional",
+    "drop": "Drop",
+    "rakeback": "Rakeback",
+    "reload": "Recarga",
+    "racePayout": "Pago de Carrera",
+    "sportsbookPromotion": "Promoción de Apuestas Deportivas",
+    "allOther": "Todos los Demás",
+    "tipsReceived": "Propinas Recibidas",
+    "vaultDeposit": "Depósito en Bóveda",
+    "vaultWithdrawal": "Retiro de Bóveda",
+    "campaignWithdrawal": "Retiro de Campaña",
+    "rainReceived": "Lluvia Recibida",
+    "rainSent": "Lluvia Enviada"
+  },
+  "vipClub": {
+    "liveSection": {
+      "title": "Soporte al cliente en vivo, 24 horas",
+      "description": "Soporte real de personas reales. Estamos disponibles a través de chat en vivo instantáneo y correo electrónico para ayudarte.",
+      "button": "Contáctanos"
+    },
+    "BETIDAVipRankingLevel": {
+      "title": "Sistema de clasificación VIP de BETIDA"
+    },
+    "BETIDAVipRankingLevel2": {
+      "title": "Sistema de clasificación VIP de BETIDA"
+    },
+    "type": {
+      "general": {
+        "title": "General"
+      },
+      "benefits": {
+        "title": "Beneficios"
+      },
+      "vipHosts": {
+        "title": "Anfitriones VIP"
+      }
+    }
+  },
+  "vip": {
+    "sections": {
+      "0": {
+        "title": "Beneficios VIP"
+      },
+      "1": {
+        "title": "Anfitrión VIP"
+      }
+    }
+  },
+  "depositLimits": {
+    "addLimitButton": "Añadir Límite",
+    "emptyMessage": "No tienes límites establecidos",
+    "toastComingSoon": "¡La función de añadir límite estará disponible pronto!"
+  },
+  "gamblingLimits": {
+    "BETIDASmart": "Más información y detalles sobre los límites en",
+    "BETIDASmartLink": "BETIDA Smart",
+    "limitTypeLabel": "Tipo de Límite",
+    "limitAmountLabel": "Cantidad del Límite*",
+    "limitPeriodLabel": "Período del Límite",
+    "selectLimitType": "Selecciona tipo de límite",
+    "selectLimitPeriod": "Selecciona período de límite",
+    "lossOption": "Pérdida",
+    "wagerOption": "Apuesta",
+    "dayOption": "Día",
+    "weekOption": "Semana",
+    "monthOption": "Mes",
+    "updateNotice": "Por favor, permite hasta 30 segundos para que la actualización surta efecto.",
+    "addLimit": "Añadir Límite",
+    "adding": "Añadiendo...",
+    "successToast": "¡Límite de juego añadido con éxito!",
+    "errorToast": "Error al añadir límite",
+    "genericError": "Ocurrió un error al enviar el formulario",
+    "positiveNumberError": "La cantidad del límite debe ser un número positivo"
+  },
+  "selfExclusion": {
+    "title": "Política de Autoexclusión",
+    "learnMore": "Más información sobre",
+    "request": "Solicitar",
+    "modal": {
+      "title": "Autoevaluación",
+      "yes": "Sí",
+      "no": "No",
+      "progress": "Pregunta {current} de {total}"
+    }
+  },
+  "selfExclusionModal": {
+    "duration": "Duración",
+    "selectDuration": "Selecciona una duración",
+    "next": "Siguiente",
+    "disclaimer": "Tu cuenta se pondrá inmediatamente en modo \"solo retiro\".",
+    "confirmMessage": "¿Estás seguro de que deseas iniciar una pausa en el juego en stake.com? Cualquier decisión tomada aquí es final e irreversible. Al confirmar tu pausa, no podrás jugar en stake.com durante el tiempo que establezcas.",
+    "confirm": "Confirmar",
+    "confirmed": "Pausa en el juego iniciada por {duration}."
+  },
+  "selfAssessment": {
+    "toast": "Autoevaluación iniciada",
+    "button": "Iniciar Autoevaluación",
+    "contactSupport": "Contactar Soporte",
+    "supportSoon": "¡La función de contacto con soporte llegará pronto!",
+    "learnMore": "Más información sobre autoevaluación"
+  },
+  "selfAssessmentModal": {
+    "title": "Autoevaluación",
+    "yes": "Sí",
+    "no": "No",
+    "progress": "Pregunta {current} de {total}"
+  },
+  "selfAssessmentResult": {
+    "title": "Cuestionario de Autoevaluación",
+    "subtitle": "Tus Resultados Sugieren que Podrías Necesitar Apoyo",
+    "description": "Según tus respuestas, recomendamos encarecidamente configurar herramientas de juego responsable para apoyar tu bienestar.",
+    "supportInfo": "Contacta con nuestro equipo de soporte en vivo si necesitas ayuda para configurar una herramienta de juego responsable en tu cuenta.",
+    "contactSupport": "Contactar Soporte",
+    "learnMore": "Más Información",
+    "done": "Hecho",
+    "contactSoon": "El soporte en vivo te ayudará en breve.",
+    "submitted": "¡Autoevaluación enviada con éxito!"
+  },
+  "monthlyBudgetCalculator": {
+    "title": "Calculadora de Presupuesto Mensual",
+    "confidential": "Tu información es confidencial y no visible para BETIDA.",
+    "incomeSection": "Ingresos",
+    "wagesLabel": "Salario después de deducciones",
+    "pensionsLabel": "Pensiones",
+    "benefitsLabel": "Beneficios",
+    "otherIncomeLabel": "Otros ingresos",
+    "totalIncomeLabel": "Ingresos totales",
+    "expensesSection": "Gastos",
+    "rentMortgageLabel": "Alquiler/hipoteca",
+    "utilityBillsLabel": "Facturas de servicios",
+    "loansCreditLabel": "Préstamos/crédito",
+    "otherExpensesLabel": "Otros gastos",
+    "totalExpensesLabel": "Gastos totales",
+    "disposableIncomeTitle": "Ingresos Disponibles"
+  },
+  "BlogDetails": {
+    "notFound": "Blog no encontrado",
+    "backToBlog": "Volver al blog",
+    "blog": "Blog",
+    "publishedOn": "Publicado el",
+    "at": "a las",
+    "goTo": "Ir a {platform}",
+    "goToCategory": "Ir a la categoría {category}"
+  },
+  "BlogPage": {
+    "title": "Blog",
+    "noData": "No se encontraron datos",
+    "pageOf": "Página {current} de {total}",
+    "prevPage": "Página Anterior",
+    "nextPage": "Página Siguiente"
+  },
+  "BlogCard": {
+    "publishedAt": "Publicado el",
+    "untitled": "Blog sin título"
+  },
+  "RelatedBlogs": {
+    "title": "Otros Artículos Populares",
+    "goTo": "Ir al blog {title}"
+  },
+  "SponsorshipPage": {
+    "loading": "Cargando...",
+    "seeDetails": "Ver Detalles"
+  },
+  "Promotions": {
+    "title": "Promociones",
+    "tabs": {
+      "allPromotions": "Todas las promociones",
+      "casino": "Casino",
+      "sports": "Deportes",
+      "community": "Comunidad",
+      "poker": "Póker"
+    }
+  },
+  "PromotionsPage": {
+    "noData": "No se encontraron promociones",
+    "pageOf": "Página {current} de {total}",
+    "prevPage": "Página anterior",
+    "nextPage": "Página siguiente"
+  },
+  "PromotionsCard": {
+    "untitled": "Promoción sin título",
+    "endsAt": "Finaliza el"
+  },
+  "CasinoPromotions": {
+    "noData": "No se encontraron promociones de casino",
+    "pageOf": "Página {current} de {total}",
+    "prevPage": "Página anterior",
+    "nextPage": "Página siguiente"
+  },
+  "SportsPromotions": {
+    "noData": "No se encontraron promociones deportivas",
+    "pageOf": "Página {current} de {total}",
+    "prevPage": "Página anterior",
+    "nextPage": "Página siguiente"
+  },
+  "CommunityPromotions": {
+    "noData": "No se encontraron promociones de comunidad",
+    "pageOf": "Página {current} de {total}",
+    "prevPage": "Página anterior",
+    "nextPage": "Página siguiente"
+  },
+  "PokerPromotions": {
+    "noData": "No se encontraron promociones de póker",
+    "pageOf": "Página {current} de {total}",
+    "prevPage": "Página anterior",
+    "nextPage": "Página siguiente"
+  },
+  "PromotionsDetails": {
+    "noRelatedPromotions": "No hay promociones relacionadas disponibles.",
+    "promotions": "Promociones",
+    "notFound": "Promoción no encontrada",
+    "untitled": "Promoción sin título",
+    "howToEnter": "Cómo participar",
+    "selectedGames": "Juegos seleccionados",
+    "prizesBreakdown": "Desglose de premios",
+    "position": "Posición",
+    "prize": "Premio",
+    "noPrize": "Sin premio",
+    "noPrizes": "No hay desglose de premios disponible.",
+    "leaderboard": "Clasificación",
+    "user": "Usuario",
+    "result": "Resultado",
+    "noLeaderboard": "No hay datos de clasificación disponibles.",
+    "terms": "Términos y condiciones",
+    "joinNow": "Únete ahora",
+    "relatedPromotions": "Otras promociones populares",
+    "backTo": "Volver a {category}"
+  },
+  "PublishersPage": {
+    "title": "Editores",
+    "noData": "No se encontraron editores",
+    "pageOf": "Página {current} de {total}",
+    "prevPage": "Página anterior",
+    "nextPage": "Página siguiente"
+  },
+  "footer": {
+    "sections": {
+      "Casino": "Casino",
+      "Sports": "Deportes",
+      "Support": "Soporte",
+      "About Us": "Sobre Nosotros",
+      "Payment Info": "Información de Pago",
+      "FAQ": "Preguntas Frecuentes"
+    },
+    "links": {
+      "casinoGames": "Juegos de Casino",
+      "slots": "Tragamonedas",
+      "liveCasino": "Casino en Vivo",
+      "roulette": "Ruleta",
+      "blackjack": "Blackjack",
+      "poker": "Póker",
+      "publishers": "Proveedores",
+      "promosCompetitions": "Promociones y Competiciones",
+      "betidaEngine": "Motor BETIDA",
+      "sportsbook": "Casa de Apuestas",
+      "liveSports": "Deportes en Vivo",
+      "soccer": "Fútbol",
+      "basketball": "Baloncesto",
+      "tennis": "Tenis",
+      "betBonuses": "Bonos de Apuestas",
+      "sportsRules": "Reglas Deportivas",
+      "racingRules": "Reglas de Carreras",
+      "helpCenter": "Centro de Ayuda",
+      "fairness": "Equidad",
+      "gamblingHelpline": "Línea de Ayuda al Juego",
+      "selfExclusion": "Autoexclusión",
+      "lawEnforcementRequest": "Solicitud de Aplicación de la Ley",
+      "vipClub": "Club VIP",
+      "affiliate": "Afiliados",
+      "privacyPolicy": "Política de Privacidad",
+      "amlPolicy": "Política AML",
+      "termsOfService": "Términos de Servicio",
+      "depositWithdrawals": "Depósitos y Retiros",
+      "currencyGuide": "Guía de Monedas",
+      "cryptoGuide": "Guía de Cripto",
+      "supportedCrypto": "Criptomonedas Soportadas",
+      "howToUseVault": "Cómo Usar la Bóveda",
+      "howMuchToBet": "Cuánto Apostar",
+      "howToGuides": "Guías Prácticas",
+      "onlineCasinoGuide": "Guía de Casino Online",
+      "sportsBettingGuide": "Guía de Apuestas Deportivas",
+      "liveStreamSports": "Cómo Transmitir Deportes en Vivo",
+      "betidaVipGuide": "Guía VIP de BETIDA",
+      "houseEdgeGuide": "Guía de Ventaja de la Casa"
+    },
+    "followFacebook": "Síguenos en Facebook",
+    "followX": "Síguenos en X",
+    "followMessage": "Síguenos en Message",
+    "followInstagram": "Síguenos en Instagram",
+    "followYoutube": "Síguenos en YouTube",
+    "followTiktok": "Síguenos en TikTok",
+    "followLinkedin": "Síguenos en LinkedIn",
+    "copyright": "© 2025 brandname.com | Todos los derechos reservados.",
+    "ownership": "BETIDA es propiedad y está operado por Medium Nam ultrices mi sed sem número: 3241231, dirección registrada: Maecenas at est interdum. Las empresas de agentes de pago son Ut pharetra turpis eu justo y Ut Justo Limited. Contáctenos en support@brandname.com.",
+    "responsibleGambling": "BETIDA está comprometido con el juego responsable, para más información visite",
+    "btcPrice": "1 BTC = $118,623.96"
+  }
+}

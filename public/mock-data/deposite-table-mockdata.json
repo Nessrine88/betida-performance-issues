@@ -1,0 +1,37 @@
+[
+  {
+    "date": "2026-07-17T22:31:00.000Z",
+    "status": "Sent",
+    "view": "$1,995.30",
+    "type": "bitcoin",
+    "amount": "-$1,995.30"
+  },
+  {
+    "date": "2026-07-17T22:31:00.000Z",
+    "status": "Completed",
+    "view": "$4,800.00",
+    "type": "binance",
+    "amount": "$28,800.00"
+  },
+  {
+    "date": "2026-07-17T22:31:00.000Z",
+    "status": "Sent",
+    "view": "$1,995.30",
+    "type": "bitcoin",
+    "amount": "-$1,995.30"
+  },
+  {
+    "date": "2026-07-17T22:31:00.000Z",
+    "status": "Completed",
+    "view": "$4,800.00",
+    "type": "binance",
+    "amount": "$28,800.00"
+  },
+  {
+    "date": "2026-07-17T22:31:00.000Z",
+    "status": "Sent",
+    "view": "$1,995.30",
+    "type": "bitcoin",
+    "amount": "-$1,995.30"
+  }
+]

@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main, ci/*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run CI checks (regex checks)
+        run: |
+         # Check for hard-coded colors and values (general, Tailwind-focused)
+          grep -RInE '#[0-9a-fA-F]{3,8}' src/ && echo "Warning: Hard-coded hex colors detected; use Tailwind classes or CSS variables" || true
+          grep -RInE 'rgba\(' src/ && echo "Warning: Hard-coded rgba colors detected; use Tailwind classes or CSS variables" || true
+          grep -RInE 'hsl\(' src/ && echo "Warning: Hard-coded hsl colors detected; use Tailwind classes or CSS variables" || true
+          grep -RInE '[0-9.]+px' src/ && echo "Warning: Hard-coded pixel values detected; use Tailwind spacing classes or rem/em" || true
+          # Check for inline styles (enforce no style={{}})
+          grep -RInE 'style=\{\{' src/ && echo "Warning: Inline styles detected; use Tailwind classes instead" || true

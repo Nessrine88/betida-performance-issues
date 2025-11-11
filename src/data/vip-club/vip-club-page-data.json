@@ -1,0 +1,133 @@
+{
+  "stakeVipRankingLevel": {
+    "title": "Stake VIP ranking system",
+    "levels": {
+      "bronze": {
+        "progress": "100%",
+        "icon": "BronzeIconSvg",
+        "price": "$10k",
+        "items": [
+          "Monthly bonuses",
+          "Level Up bonuses",
+          "Rakeback",
+          "Weekly bonuses"
+        ]
+      },
+      "silver": {
+        "progress": "50%",
+        "icon": "SilverIconSvg",
+        "price": "$50k",
+        "items": [
+          "Monthly bonuses",
+          "Level Up bonuses",
+          "Rakeback",
+          "Weekly bonuses",
+          "Bonus growth"
+        ]
+      },
+      "gold": {
+        "progress": "0%",
+        "icon": "GoldIconSvg",
+        "price": "$100k",
+        "items": [
+          "Monthly bonuses",
+          "Level Up bonuses",
+          "Rakeback",
+          "Weekly bonuses",
+          "Bonus growth"
+        ]
+      },
+      "platinum": {
+        "progress": "0%",
+        "icon": "PlatinumIconSvg",
+        "price": "$250k - $1M",
+        "items": [
+          "Monthly bonuses",
+          "Level Up bonuses",
+          "Rakeback",
+          "Weekly bonuses",
+          "Bonus growth",
+          "Daily bonuses / Reload"
+        ]
+      }
+    }
+  },
+  "stakeVipRankingLevel2": {
+    "title": "Stake VIP ranking system",
+    "Advantages": [
+      {
+        "id": 1,
+        "title": "Boost",
+        "details": "Every week and every month, expect a fresh bonus based on your recent games. The more you play, the higher the bonuses."
+      },
+      {
+        "id": 2,
+        "title": "Dedicated VIP Host",
+        "details": "Receive your own dedicated VIP host who will support and cater to your betting needs."
+      },
+      {
+        "id": 3,
+        "title": "Recent Play Bonuses",
+        "details": "Having a rough streak of luck? Stake offers money back on losses every time you level up."
+      },
+      {
+        "id": 4,
+        "title": "Level-Ups",
+        "details": "Reach a new level and get paid. The level-ups get better the higher you go."
+      },
+      {
+        "id": 5,
+        "title": "Bespoke benefits",
+        "details": "Work with your dedicated VIP host to tailor benefits to your gaming needs."
+      }
+    ]
+  },
+  "type": {
+    "general": [
+      {
+        "title": "Why is Stake’s VIP program the best?",
+        "content": "Stake’s VIP program is often rated as one of the best online casino experiences due to the amount of bonuses we give out to players. Additionally, our award winning support team is online 24/7 to answer any questions you have. We have the highest customer satisfaction rate out of many online casinos where we have amassed a community of some of the most passionate gamblers across the globe."
+      },
+      {
+        "title": "How much has Stake given out in bonuses?",
+        "content": "Yes, BETIDA operates under proper licensing and regulatory oversight..."
+      },
+      {
+        "title": "How do I enter the $75,000 weekly raffle?",
+        "content": "Yes, BETIDA operates under proper licensing and regulatory oversight..."
+      },
+      {
+        "title": "Where can I find the Stake Telegram Channel?",
+        "content": "Yes, BETIDA operates under proper licensing and regulatory oversight..."
+      },
+      {
+        "title": "Where can I find the Stake VIP Telegram channel?",
+        "content": "Yes, BETIDA operates under proper licensing and regulatory oversight..."
+      }
+    ],
+    "benefits": [
+      {
+        "title": "How to Join the Affiliate Program?",
+        "content": "You can join our affiliate program by signing up on our platform..."
+      },
+      {
+        "title": "Commission Structure",
+        "content": "Affiliates earn a percentage of revenue based on referred users..."
+      },
+      {
+        "title": "How do I join the Stake Affiliate Program?",
+        "content": "Affiliates earn a percentage of revenue based on referred users..."
+      }
+    ],
+    "vip-hosts": [
+      {
+        "title": "How Are Earnings Paid?",
+        "content": "Earnings are paid monthly via bank transfer or cryptocurrency..."
+      },
+      {
+        "title": "Minimum Payout",
+        "content": "The minimum payout threshold is $50 per month..."
+      }
+    ]
+  }
+}
