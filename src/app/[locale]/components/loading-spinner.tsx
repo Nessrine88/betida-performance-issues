@@ -10,8 +10,8 @@ export default function LoadingSpinner() {
         <Image
           src="/logos/logo.webp"
           alt="BETIDA Logo"
-          width={80}
-          height={80}
+          fill
+          sizes="(max-width: 768px) 80px,80px"
           className="object-contain"
           priority
         />

@@ -18,7 +18,6 @@ interface ApiTableProps {
 
 export default function ApiTable({ data }: ApiTableProps) {
   const loading = false; 
-  console.log({ data });
   const columns: ColumnType<DeviceData>[] = [
     {
       key: "device",

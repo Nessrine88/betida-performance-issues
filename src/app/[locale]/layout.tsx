@@ -1,19 +1,20 @@
 import "./globals.css";
-import type React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import dynamic from "next/dynamic";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import QueryClientWrapper from "@/providers/QueryClientWrapper";
 import { type ReactNode } from "react";
 import { routing } from "@/i18n/routing";
 import NotFound from "./not-found";
 import { setRequestLocale } from "next-intl/server";
-import CookieBot from "./components/common/cookie-bot";
-import ServerSiteComponents from "./components/modals/server-site-components/server-site-components";
 import { fetchHero } from "@/lib/fetchers/home-page-details";
 
-const GlobalProvider = dynamic(() => import("@/providers/GlobalProvider"));
+// Server Component
+import GlobalProvider from "@/providers/GlobalProvider";
+
+// Client Components (no SSR)
+import CookieBot from "./components/common/cookie-bot";
+import ServerSiteComponents from "./components/modals/server-site-components/server-site-components";
 
 export const runtime = "edge";
 
@@ -57,13 +58,8 @@ export const metadata: Metadata = {
     images: ["https://betida.dev/detida.png"],
     creator: "@BETIDAOfficial",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  robots: { index: true, follow: true },
+  icons: { icon: "/favicon.ico" },
 };
 
 export default async function RootLayout({
@@ -74,27 +70,22 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
-    NotFound();
-  }
+
+  if (!hasLocale(routing.locales, locale)) {NotFound()};
 
   setRequestLocale(locale);
+
   const hero = await fetchHero();
-  // pre-load herop lcp
   const lcpImage = hero?.[0]?.imagePublicId;
-  const lcpImage2 = hero?.[1]?.imagePublicId;
 
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
+        {/* Preconnect for Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 
-        {/* DYNAMIC LCP PRELOAD */}
+        {/* Preload LCP hero image */}
         {lcpImage && (
           <link
             rel="preload"
@@ -107,25 +98,14 @@ export default async function RootLayout({
             imageSizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
           />
         )}
-        {lcpImage2 && (
-          <link
-            rel="preload"
-            as="image"
-            href={`https://res.cloudinary.com/dfogbvws/image/upload/w_648,c_fill,f_auto,q_auto/${lcpImage2}`}
-            imageSrcSet={`
-              https://res.cloudinary.com/dfogbvws/image/upload/w_400,c_fill,f_auto,q_auto/${lcpImage2} 400w,
-              https://res.cloudinary.com/dfogbvws/image/upload/w_648,c_fill,f_auto,q_auto/${lcpImage2} 648w
-            `}
-            imageSizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        )}
       </head>
-      <body className="antialiased">
-        <CookieBot />
+      <body className="antialiased bg-black text-white">
         <NextIntlClientProvider>
           <QueryClientWrapper>
             <GlobalProvider>
               {children}
+              {/* Client Components */}
+              <CookieBot />
               <ServerSiteComponents />
             </GlobalProvider>
           </QueryClientWrapper>

@@ -75,8 +75,8 @@ export default function GlobalFileUpload({
         {file ? (
           <div className="relative w-full h-full">
             <Image
-              height={60}
-              width={60}
+              fill
+              sizes="(min-width: 768, 60px,60px)"
               src={previewUrl || ""}
               alt="Preview"
               className="w-full h-full object-cover rounded-lg"

@@ -33,12 +33,14 @@ export default async function NotificationsDropdown() {
                 className="flex items-center gap-3 py-3 cursor-pointer hover:bg-background hover:rounded-lg hover:border-transparent px-3 duration-300"
               >
                 {n.icon && (
-                  <Image
-                    src={n.icon}
-                    alt={n.title}
-                    height={24}
-                    width={24}
-                  />
+                <Image
+                  src={n.icon || "/placeholder-icon.png"} // fallback if n.icon is missing
+                  alt={n.title}
+                  width={24}
+                  height={24}
+                  priority
+                  quality={80}      // balance sharpness and file size
+                />
                 )}
                 <div>
                   <p className="font-medium">{n.title}</p>

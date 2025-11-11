@@ -53,7 +53,6 @@ export default function PartneringWithUsSection({ data, langCode }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const steps = data.steps;
-  console.log({ Steps: data.steps }); 
 
   const initialId = Number(searchParams.get("step")) || steps[0].id;
   const initialStep = steps.find((s) => s.id === initialId) || steps[0];
