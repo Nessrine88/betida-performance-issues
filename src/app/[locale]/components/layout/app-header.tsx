@@ -161,8 +161,8 @@ export default function AppHeader() {
                   width={32}
                   height={32}
                   sizes="32px"
-                  loading="lazy"
-                  priority={false}
+                   loading="eager"
+                   priority 
                 />
               </span>
               <span className="hidden text-lg font-semibold text-foreground lg:block">
