@@ -9,7 +9,6 @@ interface CImageProps {
   alt: string;
   width?: number;
   height?: number;
-  quality?: number;
   priority?: boolean;
   className?: string;
   sizes?: string;
@@ -26,7 +25,6 @@ const CImage: React.FC<CImageProps> = ({
   priority = false,
   fetchPriority = "auto",
   className,
-  quality,
   blurDataUrl = publicId + "?w_10,h_10,c_fill,f_auto,q_10",
 }) => {
   return (
@@ -43,7 +41,6 @@ const CImage: React.FC<CImageProps> = ({
       blurDataURL={blurDataUrl}
       fetchPriority={fetchPriority}
       loading={priority ? "eager" : "lazy"}
-      quality={quality || undefined}
     />
   );
 };
