@@ -14,7 +14,6 @@ interface QuestionProps {
 async function Question({ questions }: QuestionProps) {
   const t = await getTranslations("questionSectionTitle");
   const locale = await getLocale();
-  console.log({ locale });
   const getLocalizedString = (
     strings: QuestionData["title"] | QuestionData["content"] | undefined,
     loc: LanguageCode

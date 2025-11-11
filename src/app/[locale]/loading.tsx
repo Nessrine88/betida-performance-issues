@@ -11,8 +11,8 @@ export default function Loading() {
         <Image
           src="/logos/logo.webp" 
           alt="BETIDA Logo"
-          width={60}
-          height={60}
+          fill
+          sizes="(max-width: 768px) 60px,60px"
           className="object-contain"
           priority
         />

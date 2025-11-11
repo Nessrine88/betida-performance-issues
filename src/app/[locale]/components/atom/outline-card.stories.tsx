@@ -38,6 +38,7 @@ export const WithContent: Story = {
                 <Image
                     src="/avatar.png"
                     alt="avatar"
+                    fill
                     className="w-8 h-8 rounded-full"
                 />
                 <span>Shuvo Roy</span>

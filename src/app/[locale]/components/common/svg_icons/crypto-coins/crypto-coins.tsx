@@ -41,25 +41,26 @@ export function EthereumSVG({ size = 16 }: { size?: number }) {
       <path
         d="M11.3551 7.988L7.99463 8.2765V6.087L11.3551 7.988ZM7.99463 10.507C8.98463 9.947 10.2631 9.225 11.4886 8.535C10.4506 10.156 9.16263 12.158 7.99463 13.976V10.507ZM7.99463 5.4725V2L11.4886 7.4225L7.99463 5.4725Z"
         fill="var(--foreground)"
-        fill-opacity="0.601"
+        fillOpacity={0.601}
       />
       <path
-        opacity="0.2"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        opacity={0.2}
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M7.99463 8.27654L11.3546 7.98804L7.99463 9.87554V8.27654Z"
         fill="var(--foreground)"
       />
       <path
-        opacity="0.603"
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        opacity={0.603}
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M7.9938 8.27654L4.6333 7.98804L7.9938 9.87554V8.27654Z"
         fill="var(--foreground)"
       />
     </svg>
   );
 }
+
 export function BinanceSVG({ size = 16 }: { size?: number }) {
   return (
     <svg
@@ -71,7 +72,7 @@ export function BinanceSVG({ size = 16 }: { size?: number }) {
     >
       <path
         d="M8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z"
-        fill="var(-binance)"
+        fill="var(--binance)"
       />
       <path
         d="M6.058 7.202L8 5.26L9.943 7.203L11.073 6.073L8 3L4.928 6.072L6.058 7.202ZM3 8L4.13 6.87L5.26 8L4.13 9.13L3 8ZM6.058 8.798L8 10.74L9.943 8.797L11.073 9.9265L8 13L4.928 9.928L4.9265 9.9265L6.058 8.798ZM10.74 8L11.87 6.87L13 8L11.87 9.13L10.74 8ZM9.146 7.999H9.147V8L8 9.147L6.8545 8.002L6.8525 8L6.8545 7.9985L7.055 7.7975L7.1525 7.7L8 6.853L9.146 7.999Z"

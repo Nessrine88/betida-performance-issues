@@ -140,7 +140,7 @@ export default function SettingsTab() {
                               alt={option.label}
                               width={16}
                               height={16}
-                              priority={true}   // small icons above the fold should load immediately
+                              priority
                               quality={80}      // keep it sharp but small file size
                             />
                                                       </FormLabel>

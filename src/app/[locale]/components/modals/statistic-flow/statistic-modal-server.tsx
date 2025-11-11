@@ -28,8 +28,7 @@ export default function StatisticsModalClient({
   const pathName = usePathname();
   const t = useTranslations("statisticsModal");
   const [selectedType, setSelectedType] = useState("all");
-  const [selectedCurrency, setSelectedCurrency] = useState("all");
-  console.log(selectedCurrency);
+  const [_selectedCurrency, setSelectedCurrency] = useState("all");
   const handleClose = () => {
     toggleStatisticModalOpen();
     router.push(pathName, { scroll: false });

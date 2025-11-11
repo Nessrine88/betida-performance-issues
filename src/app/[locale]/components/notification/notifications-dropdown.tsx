@@ -38,7 +38,7 @@ export default async function NotificationsDropdown() {
                   alt={n.title}
                   width={24}
                   height={24}
-                  priority={true}   // small UI icons should load immediately
+                  priority
                   quality={80}      // balance sharpness and file size
                 />
                 )}

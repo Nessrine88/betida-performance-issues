@@ -26,7 +26,6 @@ type ReferAndEarnProps = {
 const ReferAndEarn = ({ data, langCode }: ReferAndEarnProps) => {
   const affiliateCode = "HZNTG6Z6FJRGEYRFKFBEE3TCLYUHIY3MGU2HGM3SOB5GQJS6ORKA";
   const user = useAuthStore((s) => s.user);
-  console.log(data.image)
   return (
     <div className="w-full bg-background-1 rounded-lg p-6 overflow-hidden space-y-4">
       <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-4 lg:gap-10">

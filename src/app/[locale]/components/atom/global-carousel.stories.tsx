@@ -188,8 +188,8 @@ const renderPromotionCard = (item: any) => (
     <Image
       src={item.image}
       alt={item.title}
-      width={500}        // specify width
-      height={375}       // specify height
+      fill
+      sizes="(min-width: 768px) 500px,375px"    // specify height
       className="rounded object-cover"
       priority={false}   // set true only for above-the-fold images
       quality={75}       // reduces file size while keeping good quality

@@ -45,7 +45,6 @@ export default function ProvablyFairCalculation() {
   const watchedFields = form.watch();
 
   useEffect(() => {
-    console.log("payload:", watchedFields);
   }, [watchedFields]);
 
   return (
