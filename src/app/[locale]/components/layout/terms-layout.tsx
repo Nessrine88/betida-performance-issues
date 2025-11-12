@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSidebarStore } from "@/store/sidebar-store";
 import SideTab from "../../components/layout/side-tab";
@@ -37,62 +36,51 @@ export default function TermsLayoutCompo({
   const activeLink = links.find((link) => link.href === pathname);
   const activeName = activeLink ? activeLink.name : layoutName;
 
-  // close tab on route change
+  // Close tab on route change
   useEffect(() => {
-    if (pageTabOpen) {
-      setPageTabOpen(false);
-    }
+    if (pageTabOpen) {setPageTabOpen(false)};
   }, [pathname, pageTabOpen, setPageTabOpen]);
 
-  // lock scroll when tab is open
+  // Lock scroll when tab is open
   useEffect(() => {
-    if (pageTabOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = pageTabOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [pageTabOpen]);
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="w-full text-foreground">
         <div className="relative bg-background-1">
+          {/* Mobile dropdown button */}
           <div className="app-container font-medium py-4 flex justify-center md:hidden">
-            {/* Mobile dropdown button */}
-            <div className="md:hidden flex justify-center">
-              <Select
-                value={pathname}
-                onValueChange={(val) => {
-                  router.push(val);
-                }}
-              >
-                <SelectTrigger className="w-fit min-w-50 h-12 bg-background text-center border text-foreground focus:border-accent">
-                  <SelectValue
-                    placeholder={activeName}
-                    className="text-center"
-                  />
-                </SelectTrigger>
-                <SelectContent>
-                  {links.map((link) => (
-                    <SelectItem key={link.href} value={link.href}>
-                      <Link prefetch href={`/terms/${link.href}`} aria-label={link?.name}>{link.name}</Link>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            <Select
+              value={pathname}
+              onValueChange={(val) => router.push(val)}
+            >
+              <SelectTrigger className="w-fit min-w-50 h-12 bg-background text-center border text-foreground focus:border-accent">
+                <SelectValue placeholder={activeName} className="text-center" />
+              </SelectTrigger>
+              <SelectContent>
+                {links.map((link) => (
+                  <SelectItem key={link.href} value={link.href}>
+                    <Link prefetch href={`/terms/${link.href}`} aria-label={link.name}>
+                      {link.name}
+                    </Link>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
-          {/* Mobile dropdown */}
+          {/* Mobile dropdown panel */}
           <AnimatePresence>
             {pageTabOpen && (
               <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: "calc(100vh - 13rem)" }}
-                exit={{ height: 0 }}
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "calc(100vh - 13rem)", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="overflow-hidden top-full left-0 z-10 absolute block md:hidden w-full app-container bg-background-1"
               >

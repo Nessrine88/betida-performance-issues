@@ -209,17 +209,16 @@ export default function SidebarMenuSections() {
                     </Link>
                   )}
 
-                  {/* Children */}
+                  {/* Children with layout animation */}
                   {item.children && (
-                    <AnimatePresence>
+                    <AnimatePresence initial={false}>
                       {isExpanded && (
                         <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          className={`px-3 flex flex-col rounded-b-lg ${
-                            isExpanded ? "bg-background" : "bg-transparent"
-                          }`}
+                          layout
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="px-3 flex flex-col rounded-b-lg bg-background overflow-hidden"
                         >
                           {item.children.map((child) => {
                             const isChildRestricted =
@@ -244,9 +243,7 @@ export default function SidebarMenuSections() {
 
                                       if (child.locale) {
                                         if (child.locale === locale) {
-                                          if (mobileOpen) {
-                                            toggleMobileOpen();
-                                          }
+                                          if (mobileOpen) {toggleMobileOpen()};
                                           return;
                                         }
 
@@ -254,9 +251,7 @@ export default function SidebarMenuSections() {
                                           locale: child.locale,
                                         });
 
-                                        if (mobileOpen) {
-                                          toggleMobileOpen();
-                                        }
+                                        if (mobileOpen) {toggleMobileOpen()};
                                         return;
                                       }
 
@@ -264,9 +259,7 @@ export default function SidebarMenuSections() {
                                       if (child.navigateTo) {
                                         router.push(child.navigateTo);
                                       }
-                                      if (mobileOpen) {
-                                        toggleMobileOpen();
-                                      }
+                                      if (mobileOpen){ toggleMobileOpen()};
                                     }}
                                     className="flex w-full items-start relative py-1 pl-1"
                                     aria-label={child.text}
@@ -301,11 +294,7 @@ export default function SidebarMenuSections() {
                                 ) : (
                                   <Link
                                     prefetch
-                                    href={
-                                      isChildRestricted
-                                        ? "#"
-                                        : child.href || "#"
-                                    }
+                                    href={isChildRestricted ? "#" : child.href || "#"}
                                     className="flex w-full items-start relative py-1 pl-1 cursor-pointer"
                                     aria-label={`go to ${child?.text}`}
                                     onClick={() => setRouteLoading(true)}

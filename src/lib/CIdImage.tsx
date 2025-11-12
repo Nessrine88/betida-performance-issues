@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { cloudinaryLoader } from "@/lib/cloudinaryLoader";
 
 interface CImageProps {
@@ -14,6 +14,7 @@ interface CImageProps {
   sizes?: string;
   fetchPriority?: "high" | "low" | "auto" | undefined;
   blurDataUrl?: string;
+  fallbackSrc?: string; // optional fallback image
 }
 
 const CImage: React.FC<CImageProps> = ({
@@ -26,7 +27,23 @@ const CImage: React.FC<CImageProps> = ({
   fetchPriority = "auto",
   className,
   blurDataUrl = publicId + "?w_10,h_10,c_fill,f_auto,q_10",
+  fallbackSrc = "/logos/logo.webp",
 }) => {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError || !publicId) {
+    return (
+      <Image
+        src={fallbackSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        className={className}
+        style={{ objectFit: "cover" }}
+      />
+    );
+  }
+
   return (
     <Image
       loader={({ width: w }) => cloudinaryLoader({ src: publicId, width: w })}
@@ -41,6 +58,10 @@ const CImage: React.FC<CImageProps> = ({
       blurDataURL={blurDataUrl}
       fetchPriority={fetchPriority}
       loading={priority ? "eager" : "lazy"}
+      onLoadingComplete={(img) => {
+        // if img failed to load, trigger fallback
+        if (!img?.naturalWidth) {setHasError(true)};
+      }}
     />
   );
 };

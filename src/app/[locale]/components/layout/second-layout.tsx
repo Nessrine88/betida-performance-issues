@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSidebarStore } from "@/store/sidebar-store";
 import SideTab from "../../components/layout/side-tab";
@@ -36,11 +35,7 @@ export default function SecondLayout({
   const activeName = activeLink ? activeLink.name : layoutName;
 
   useEffect(() => {
-    if (pageTabOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = pageTabOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -86,15 +81,16 @@ export default function SecondLayout({
             </div>
           </div>
 
-          {/* Mobile dropdown */}
+          {/* Mobile dropdown animation */}
           <AnimatePresence>
             {pageTabOpen && (
               <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: "calc(100vh - 13rem)" }}
-                exit={{ height: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="overflow-hidden top-full left-0 z-50 absolute block lg:hidden w-full app-container bg-background-1"
+                key="side-tab"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="overflow-hidden top-full left-0 z-50 absolute block lg:hidden w-full app-container bg-background-1 rounded-b-lg shadow-md"
               >
                 <SideTab links={links} onTabClick={togglePageTabOpen} />
               </motion.div>

@@ -1,4 +1,5 @@
 "use client";
+
 import { cn } from "@/lib/utils";
 import { ChevronUp } from "lucide-react";
 import React, { useState } from "react";
@@ -15,15 +16,22 @@ interface OutlineCardProps {
   lock?: boolean;
 }
 
-function OutlineCard({
+export default function OutlineCard({
   title,
   children,
   className,
-  collapsable,
+  collapsable = false,
   defaultOpen = true,
-  lock,
+  lock = false,
 }: OutlineCardProps) {
   const [open, setOpen] = useState(defaultOpen);
+
+  const toggleOpen = (e?: React.MouseEvent) => {
+    if (collapsable && !lock) {
+      e?.stopPropagation?.();
+      setOpen((prev) => !prev);
+    }
+  };
 
   return (
     <div
@@ -33,44 +41,38 @@ function OutlineCard({
       )}
     >
       <div
-        className={`px-6 py-4 font-semibold text-base bg-background-1 flex flex-row items-center gap-6 justify-between ${
+        onClick={toggleOpen}
+        className={cn(
+          "px-6 py-4 font-semibold text-base bg-background-1 flex flex-row items-center gap-6 justify-between transition-all duration-300",
           collapsable && !lock && "cursor-pointer"
-        }`}
-        onClick={() => {
-          if (collapsable && !lock) {
-            setOpen(!open);
-          }
-        }}
+        )}
       >
         {title}
+
         {collapsable && (
           <button
-            aria-label="collapse"
+            aria-label="Toggle section"
             type="button"
             disabled={lock}
-            onClick={(e) => {
-              if (lock) {
-                return;
-              }
-              e.stopPropagation();
-              setOpen(!open);
-            }}
+            onClick={toggleOpen}
             className={cn(
               "h-5 w-5 rounded-full flex items-center justify-center transition-colors duration-300",
               lock
                 ? "bg-transparent cursor-not-allowed opacity-60"
                 : open
-                  ? "bg-foreground text-background cursor-pointer"
-                  : "bg-foreground/55 text-foreground cursor-pointer"
+                ? "bg-foreground text-background cursor-pointer"
+                : "bg-foreground/55 text-foreground cursor-pointer"
             )}
           >
             {lock ? (
               <LockIconSVG />
             ) : (
-              <ChevronUp
-                size={14}
-                className={`${open ? "rotate-0" : "rotate-180"} duration-500`}
-              />
+              <motion.div
+                animate={{ rotate: open ? 0 : 180 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                <ChevronUp size={14} />
+              </motion.div>
             )}
           </button>
         )}
@@ -93,5 +95,3 @@ function OutlineCard({
     </div>
   );
 }
-
-export default OutlineCard;

@@ -1,4 +1,5 @@
 "use client";
+
 import { cn } from "@/lib/utils";
 import { ChevronUp } from "lucide-react";
 import React, { useState } from "react";
@@ -15,15 +16,22 @@ interface GrayCardProps {
   lock?: boolean;
 }
 
-function GrayCard({
+export default function GrayCard({
   title,
   children,
   className,
-  collapsable,
+  collapsable = false,
   defaultOpen = true,
-  lock,
+  lock = false,
 }: GrayCardProps) {
   const [open, setOpen] = useState(defaultOpen);
+
+  const toggleOpen = (e?: React.MouseEvent) => {
+    if (collapsable && !lock) {
+      e?.stopPropagation?.();
+      setOpen((prev) => !prev);
+    }
+  };
 
   return (
     <div
@@ -33,28 +41,20 @@ function GrayCard({
       )}
     >
       <div
-        className={`px-6 py-3 font-semibold text-sm bg-background-2 transition-all duration-300 hover:bg-background/20 flex flex-row items-center gap-6 justify-between ${
+        className={cn(
+          "px-6 py-3 font-semibold text-sm bg-background-2 transition-all duration-300 hover:bg-background/20 flex flex-row items-center gap-6 justify-between",
           collapsable && !lock && "cursor-pointer"
-        }`}
-        onClick={() => {
-          if (collapsable && !lock) {
-            setOpen(!open);
-          }
-        }}
+        )}
+        onClick={toggleOpen}
       >
         {title}
+
         {collapsable && (
           <button
-            aria-label="open"
+            aria-label="Toggle section"
             type="button"
             disabled={lock}
-            onClick={(e) => {
-              if (lock) {
-                return;
-              }
-              e.stopPropagation();
-              setOpen(!open);
-            }}
+            onClick={toggleOpen}
             className={cn(
               "h-5 w-5 rounded-full flex items-center justify-center transition-colors duration-300",
               lock
@@ -65,10 +65,12 @@ function GrayCard({
             {lock ? (
               <LockIconSVG />
             ) : (
-              <ChevronUp
-                size={20}
-                className={`${open ? "rotate-0" : "rotate-180"} duration-500`}
-              />
+              <motion.div
+                animate={{ rotate: open ? 0 : 180 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                <ChevronUp size={20} />
+              </motion.div>
             )}
           </button>
         )}
@@ -91,5 +93,3 @@ function GrayCard({
     </div>
   );
 }
-
-export default GrayCard;

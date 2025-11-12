@@ -15,7 +15,9 @@ import BranchAndSlots from "@/app/[locale]/components/sections/casino/brad-and-s
 import BackRedirectHandler from "../components/common/Back-redirect-handler";
 import { GlobalTabs } from "../components/global-components/GlobalTabs";
 
+
 const PublisherCardsCarousel = dynamic(
+  
   () => import("@/app/[locale]/components/sections/casino/publisher-cards-carousel"),
   { loading: () => null }
 );

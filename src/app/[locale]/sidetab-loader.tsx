@@ -1,17 +1,14 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSidebarStore } from "@/store/sidebar-store";
-import { useEffect } from "react";
 
 export default function SideTabLoader() {
   const { sideTabLoading } = useSidebarStore();
+
   useEffect(() => {
-    if (sideTabLoading) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = sideTabLoading ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
@@ -22,9 +19,11 @@ export default function SideTabLoader() {
     <AnimatePresence>
       {sideTabLoading && (
         <motion.div
+          key="side-tab-loader"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
           className="absolute w-full h-full z-30 bg-background-1/90 text-center rounded-lg overflow-hidden"
         >
           <div className="relative w-20 mx-auto mt-12 h-2.5 bg-background-2 rounded-full overflow-hidden">
