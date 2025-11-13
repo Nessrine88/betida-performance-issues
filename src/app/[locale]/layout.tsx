@@ -16,6 +16,7 @@ import GlobalProvider from "@/providers/GlobalProvider";
 import CookieBot from "./components/common/cookie-bot";
 import ServerSiteComponents from "./components/modals/server-site-components/server-site-components";
 
+// Removed `runtime = "edge"` because it conflicts with server-only code
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
@@ -70,7 +71,9 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
-  if (!hasLocale(routing.locales, locale)) {NotFound()};
+  if (!hasLocale(routing.locales, locale)) {
+    return <NotFound />;
+  }
 
   setRequestLocale(locale);
 
