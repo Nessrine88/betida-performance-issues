@@ -377,7 +377,7 @@ export default function RegisterContent() {
     mode: "onChange",
   });
 
-  const { watch, handleSubmit, trigger, getValues } = form;
+  const { watch, trigger, getValues } = form;
 
   const watchDependencies = useMemo(
     () => [watch("language"), watch("email"), watch("password"), watch("terms")],
@@ -389,13 +389,18 @@ export default function RegisterContent() {
     const validateForCurrentStep = async () => {
       try {
         let valid = false;
-        if (step === 1) valid = !!getValues("language");
-        else if (step === 2) valid = await trigger(["email", "password"]);
-        else if (step === 3) valid = await trigger(["terms"]);
+        if (step === 1) {
+          valid = !!getValues("language")
+        }
+        else if (step === 2) {
+          valid = await trigger(["email", "password"])
+        }
+        else if (step === 3) {valid = await trigger(["terms"])};
         
-        if (mounted) setIsStepValid(valid);
+        if (mounted) {setIsStepValid(valid)
+        };
       } catch {
-        if (mounted) setIsStepValid(false);
+        if (mounted){ setIsStepValid(false)};
       }
     };
 
@@ -410,9 +415,9 @@ export default function RegisterContent() {
     }
 
     let valid = false;
-    if (step === 1) valid = !!getValues("language");
-    else if (step === 2) valid = await trigger(["email", "password"]);
-    else if (step === 3) valid = await trigger(["terms"]);
+    if (step === 1) {valid = !!getValues("language")}
+    else if (step === 2) {valid = await trigger(["email", "password"])}
+    else if (step === 3) {valid = await trigger(["terms"])};
 
     if (valid) {
       router.replace(`?auth-tab=register&reg-step=${target}`);
@@ -445,7 +450,10 @@ export default function RegisterContent() {
 
   const onLoginClick = () => router.push("?auth-tab=login");
 
-  if (step === 4) return <Step4Success onReturnHome={onReturnHome} />;
+ if (step === 4) {
+  return <Step4Success onReturnHome={onReturnHome} />;
+}
+
 
   return (
     <div className="flex flex-col justify-center items-center w-full">
