@@ -22,7 +22,6 @@ import {
 } from "../ui/dropdown-menu";
 import EmptyNotiSVG from "../common/svg_icons/empty-noti-svg";
 import WalletSVG from "../common/svg_icons/wallet-svg";
-
 import {
   BanknoteArrowDown,
   BookKey,
@@ -43,91 +42,152 @@ import LogoutModal from "../modals/logout-modal";
 import { useAuthStore } from "@/store/auth-store";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 
+// Menu configuration
+const USER_MENU_ITEMS = [
+  { icon: BriefcaseBusiness, title: "Purse", action: "wallet" },
+  { icon: BookKey, title: "Main Vault", action: "vault" },
+  { icon: VipIconSVG, title: "VIP", action: "vip" },
+  { icon: UserStar, title: "Business Partnership", href: "/affiliate" },
+  { icon: ChartNoAxesCombined, title: "Statistics", action: "statistics" },
+  { icon: Landmark, title: "Transactions", href: "/transactions" },
+  { icon: BanknoteArrowDown, title: "My Bets", href: "/my-bets" },
+  { icon: Settings, title: "Settings", href: "/settings" },
+  { icon: ShieldQuestionMark, title: "Safe & Smart Betting", href: "/responsible-gambling" },
+  { icon: Headset, title: "Live Support", action: "support" },
+  { icon: LogOut, title: "Log Out", action: "logout" },
+];
+
+const PHONE_MENU_ITEMS = [
+  { icon: MessageCircleMore, title: "Chat", action: "chat" },
+  { icon: Ticket, title: "Coupon", action: "coupon" },
+];
+
+const MOCK_NOTIFICATIONS = Array(8).fill(null).map(() => ({
+  title: "Money sent",
+  time: "9:00 AM 9/5/2025",
+}));
+
+// Shared menu item component
+const MenuItem = ({ icon: Icon, title, onClick, href, className = "" }: any) => {
+  const { setRouteLoading } = useSidebarStore();
+  const content = (
+    <>
+      {typeof Icon === "function" ? <Icon /> : Icon}
+      <p className="font-medium">{title}</p>
+    </>
+  );
+  
+  const itemClass = `flex items-center gap-3 py-3 cursor-pointer hover:bg-background hover:rounded-lg px-3 duration-300 ${className}`;
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        onClick={() => {
+          setRouteLoading(true);
+          document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+        }}
+        className={itemClass}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      onClick={() => {
+        onClick?.();
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+      }}
+      className={itemClass}
+    >
+      {content}
+    </div>
+  );
+};
+
+// Dropdown icon button
+const IconButton = ({ children, label }: { children: React.ReactNode; label: string }) => (
+  <button
+    type="button"
+    className="p-0 bg-transparent border-none cursor-pointer rounded-full hover:bg-accent"
+    aria-label={label}
+  >
+    {children}
+  </button>
+);
+
 export default function AppHeader() {
   const pathname = usePathname();
-  const [showSearchModal, setShowSearchModal] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const [loadingNoti, setLoadingNoti] = useState(true);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  
+  const authUser = useAuthStore((state) => state.user);
   const {
     toggleAuthModalOpen,
     toggleWalletSetupModalOpen,
     toggleWalletOpenModalOpen,
     toggleVipProgressModalOpen,
     toggleStatisticModalOpen,
-    setRouteLoading,
   } = useSidebarStore();
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const authUser = useAuthStore((state) => state.user);
 
-  const handleLoginClick = () => {
-    const params = new URLSearchParams(window.location.search);
-    params.set("modal", "auth");
-    params.set("auth-tab", "login");
-
-    router.push(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
-    // router.push("?auth-tab=login");
-    toggleAuthModalOpen();
+  const updateUrlParams = (params: Record<string, string>) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    Object.entries(params).forEach(([key, value]) => urlParams.set(key, value));
+    router.push(`${pathname}?${urlParams.toString()}`, { scroll: false });
   };
 
-  const debouncedUpdateQueryParams = useMemo(() => {
-    return debounce((text: string) => {
-      setSearchTerm(text);
-    }, 500);
-  }, []);
-
-  const handleNotiOpenChange = (open: boolean) => {
-    if (open) {
-      setLoadingNoti(true);
-      setTimeout(() => setLoadingNoti(false), 1000);
-    }
-  };
-
-  // const handleMenuChange = (open: boolean) => {
-  //   toast.info("Menu options feature is coming soon!");
-  // };
-
-  const handleRegisterClick = () => {
-    const params = new URLSearchParams(window.location.search);
-    params.set("modal", "auth");
-    params.set("auth-tab", "register");
-
-    router.push(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
-    // router.push("?auth-tab=register");
+  const handleAuthClick = (tab: "login" | "register") => {
+    updateUrlParams({ modal: "auth", "auth-tab": tab });
     toggleAuthModalOpen();
   };
 
   const handleWalletClick = () => {
-    const params = new URLSearchParams(window.location.search);
-    params.set("modal", "wallet");
-    params.set("wallet-step", "welcome");
-
-    router.push(`${pathname}?${params.toString()}`, {
-      scroll: false,
-    });
-    // router.push("?wallet-tab=welcome");
+    updateUrlParams({ modal: "wallet", "wallet-step": "welcome" });
     toggleWalletSetupModalOpen();
   };
 
-  const handleSearchTermChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    debouncedUpdateQueryParams(value);
+  const handleMenuAction = (action: string) => {
+    const actions: Record<string, () => void> = {
+      wallet: handleWalletClick,
+      vault: () => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("modal", "wallet");
+        params.set("wallet-step", "3");
+        params.set("currency", "BTC");
+        params.set("step", "1");
+        params.set("walletTabs", "overview");
+        router.push(`?${params.toString()}`, { scroll: false });
+        toggleWalletOpenModalOpen();
+      },
+      vip: () => {
+        updateUrlParams({ modal: "vip", progress: "overview" });
+        toggleVipProgressModalOpen();
+      },
+      statistics: () => {
+        router.push("?modal=statistics");
+        toggleStatisticModalOpen();
+      },
+      support: () => toast.info("Live support feature is coming soon!"),
+      logout: () => {
+        router.push("?modal=logout");
+        setIsLogoutModalOpen(true);
+      },
+      chat: () => toast.info("Chat feature is coming soon!"),
+      coupon: () => toast.info("Coupon feature is coming soon!"),
+    };
+    actions[action]?.();
   };
 
-  const handleLogoutClick = () => {
-    router.push("?modal=logout");
-    setIsLogoutModalOpen(true);
-  };
-
-  const handleLogoutConfirm = () => {
-    toast.success("Logged out successfully!");
-  };
+  const debouncedSearch = useMemo(
+    () => debounce((text: string) => setSearchTerm(text), 500),
+    []
+  );
 
   return (
     <header className="sticky top-0 left-0 z-40 w-full border-b border-border bg-background transition-all">
@@ -135,280 +195,101 @@ export default function AppHeader() {
         fallback={
           <div className="app-container flex items-center justify-between py-4 opacity-50 pointer-events-none">
             <div className="flex items-center gap-4">
-              <div className="w-32 h-8 bg-foreground/15 rounded animate-pulse" />{" "}
-              <div className="hidden lg:block w-40 h-6 bg-foreground/15 rounded animate-pulse" />{" "}
+              <div className="w-32 h-8 bg-foreground/15 rounded animate-pulse" />
+              <div className="hidden lg:block w-40 h-6 bg-foreground/15 rounded animate-pulse" />
             </div>
             <div className="flex items-center gap-4">
-              <div className="w-24 h-8 bg-foreground/15 rounded animate-pulse" />{" "}
-              <div className="w-32 h-8 bg-foreground/15 rounded animate-pulse" />{" "}
+              <div className="w-24 h-8 bg-foreground/15 rounded animate-pulse" />
+              <div className="w-32 h-8 bg-foreground/15 rounded animate-pulse" />
             </div>
           </div>
         }
       >
         <div className="app-container flex items-center justify-between py-4">
+          {/* Logo */}
           <div className="flex items-center gap-4">
-            {/* Logo + Brand */}
-            <Link
-              prefetch
-              href="/"
-              className="inline-flex items-center gap-3"
-              aria-label="Return to home"
-            >
-              <span>
-                <Image
-                  src="/logos/logo.webp"
-                  alt="Betida logo"
-                  width={32}
-                  height={32}
-                  sizes="32px"
-                   loading="eager"
-                   priority 
-                />
-              </span>
-              <span className="hidden text-lg font-semibold text-foreground lg:block">
-                BETIDA
-              </span>
+            <Link prefetch href="/" className="inline-flex items-center gap-3" aria-label="Return to home">
+              <Image src="/logos/logo.webp" alt="Betida logo" width={32} height={32} sizes="32px" loading="eager" priority />
+              <span className="hidden text-lg font-semibold text-foreground lg:block">BETIDA</span>
             </Link>
           </div>
+
+          {/* Wallet Section (Authenticated) */}
           {authUser && (
             <div className="flex flex-row items-center gap-0 md:gap-4">
               <GlobalWalletCurrencySelect />
-              <Button
-                variant="outline"
-                className="hidden md:block"
-                asChild
-                onClick={handleWalletClick}
-                ariaLabel="Open Wallet"
-              >
+              <Button variant="outline" className="hidden md:block" onClick={handleWalletClick}>
                 Wallet
               </Button>
               <Button
                 variant="orangeGradient"
                 className="block md:hidden rounded-l-none border-none h-11 py-1.5 px-2"
-                asChild
                 onClick={handleWalletClick}
-                ariaLabel="Open Wallet"
               >
                 <WalletSVG />
               </Button>
             </div>
           )}
-          {/* Right side actions */}
+
+          {/* Right Actions */}
           {authUser ? (
             <div className="flex items-center gap-4">
-              <div className="hidden md:flex flex-row items-center gap-2 5">
+              {/* Search */}
+              <div className="hidden md:flex">
                 <Input
-                  className="h-7 text-foreground/55 placeholder:text-foreground/15 border-none w-25 bg-transparent!"
+                  className="h-7 text-foreground/55 placeholder:text-foreground/15 border-none w-25 bg-transparent"
                   prefix={<SearchSVG />}
                   value={searchTerm}
-                  onChange={handleSearchTermChange}
-                  onFocus={() => {
-                    if (window.innerWidth < 768) {
-                      setShowSearchModal(true);
-                    }
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    debouncedSearch(e.target.value);
                   }}
+                  onFocus={() => window.innerWidth < 768 && setShowSearchModal(true)}
                   placeholder=" Search"
                 />
               </div>
 
+              {/* User Menu */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button
-                    type="button"
-                    className="p-0 bg-transparent border-none cursor-pointer rounded-full hover:bg-accent"
-                    aria-label="User menu"
-                  >
-                    <UserSVG aria-hidden="true" />
-                  </button>
+                  <IconButton label="User menu"><UserSVG /></IconButton>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="w-72 rounded-xl bg-background-1 shadow-lg border border-border p-1"
-                >
+                <DropdownMenuContent align="end" className="w-72 rounded-xl bg-background-1 shadow-lg border border-border p-1">
                   <div className="flex flex-col max-h-70 md:max-h-fit no-scrollbar overflow-y-auto divide-y divide-border">
-                    {[
-                      {
-                        icon: <BriefcaseBusiness />,
-                        title: "Purse",
-                        onClick: handleWalletClick,
-                      },
-                      {
-                        icon: <BookKey />,
-                        title: "Main Vault",
-                        onClick: () => {
-                          const params = new URLSearchParams(
-                            searchParams.toString()
-                          );
-                          params.set("modal", "wallet");
-                          params.set("wallet-step", "3");
-                          params.set("currency", "BTC");
-                          params.set("step", "1");
-                          params.set("walletTabs", "overview");
-                          router.push(`?${params.toString()}`, {
-                            scroll: false,
-                          });
-                          toggleWalletOpenModalOpen();
-                        },
-                      },
-                      {
-                        icon: <VipIconSVG />,
-                        title: "VIP",
-                        onClick: () => {
-                          const params = new URLSearchParams(
-                            window.location.search
-                          );
-                          params.set("modal", "vip");
-                          params.set("progress", "overview"); // add tab param first
-
-                          router.push(`${pathname}?${params.toString()}`, {
-                            scroll: false,
-                          });
-                          toggleVipProgressModalOpen();
-                        },
-                      },
-                      {
-                        icon: <UserStar />,
-                        title: "Business Partnership",
-                        href: "/affiliate",
-                      },
-                      {
-                        icon: <ChartNoAxesCombined />,
-                        title: "Statistics",
-                        onClick: () => {
-                          toggleStatisticModalOpen();
-                          router.push("?modal=statistics");
-                        },
-                      },
-                      {
-                        icon: <Landmark />,
-                        title: "Transactions",
-                        href: "/transactions",
-                      },
-                      {
-                        icon: <BanknoteArrowDown />,
-                        title: "My Bets",
-                        href: "/my-bets",
-                      },
-                      {
-                        icon: <Settings />,
-                        title: "Settings",
-                        href: "/settings",
-                      },
-                      {
-                        icon: <ShieldQuestionMark />,
-                        title: "Safe & Smart Betting",
-                        href: "/responsible-gambling",
-                      },
-                      {
-                        icon: <Headset />,
-                        title: "Live Support",
-                        onClick: () => {
-                          toast.info("Live support feature is coming soon!");
-                        },
-                      },
-                      {
-                        icon: <LogOut />,
-                        title: "Log Out",
-                        onClick: () => {
-                          handleLogoutClick();
-                        },
-                      },
-                    ].map((n, i) =>
-                      n.href ? (
-                        // Use Link for static navigation
-                        <Link
-                          key={i}
-                          href={n.href}
-                          onClick={() => {
-                            setRouteLoading(true);
-                            // Close dropdown by triggering open state change
-                            document.dispatchEvent(
-                              new KeyboardEvent("keydown", { key: "Escape" })
-                            );
-                          }}
-                          aria-label={`${n.title} option`}
-                          className="flex items-center gap-3 py-3 cursor-pointer hover:bg-background hover:rounded-lg hover:border-transparent px-3 duration-300"
-                        >
-                          {n.icon}
-                          <div>
-                            <p className="font-medium">{n.title}</p>
-                          </div>
-                        </Link>
-                      ) : (
-                        // Use div for click actions
-                        <div
-                          key={i}
-                          onClick={() => {
-                            n.onClick?.();
-                            // Close dropdown
-                            document.dispatchEvent(
-                              new KeyboardEvent("keydown", { key: "Escape" })
-                            );
-                          }}
-                          aria-label={`${n.title} option`}
-                          className="flex items-center gap-3 py-3 cursor-pointer hover:bg-background hover:rounded-lg hover:border-transparent px-3 duration-300"
-                        >
-                          {n.icon}
-                          <div>
-                            <p className="font-medium">{n.title}</p>
-                          </div>
-                        </div>
-                      )
-                    )}
+                    {USER_MENU_ITEMS.map((item, i) => (
+                      <MenuItem
+                        key={i}
+                        icon={item.icon}
+                        title={item.title}
+                        href={item.href}
+                        onClick={item.action ? () => handleMenuAction(item.action) : undefined}
+                      />
+                    ))}
                   </div>
                 </DropdownMenuContent>
               </DropdownMenu>
-              {/* ============================================================= */}
-              <DropdownMenu onOpenChange={handleNotiOpenChange}>
+
+              {/* Notifications */}
+              <DropdownMenu onOpenChange={(open) => open && setTimeout(() => setLoadingNoti(false), 1000)}>
                 <DropdownMenuTrigger asChild>
-                  <button
-                    type="button"
-                    className="p-0 bg-transparent border-none cursor-pointer rounded-full hover:bg-accent"
-                    aria-label="Notifications"
-                  >
-                    <NotiSVG aria-hidden="true" />
-                  </button>
+                  <IconButton label="Notifications"><NotiSVG /></IconButton>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="w-72 rounded-xl bg-background-1 shadow-lg border border-border p-1"
-                >
+                <DropdownMenuContent align="end" className="w-72 rounded-xl bg-background-1 shadow-lg border border-border p-1">
                   {loadingNoti ? (
                     <div className="flex flex-col items-center justify-center py-8 text-center text-foreground/60">
                       <EmptyNotiSVG />
                       <p className="font-medium">No Notifications Available</p>
-                      <p className="text-sm">
-                        Your interactions will be visible here
-                      </p>
+                      <p className="text-sm">Your interactions will be visible here</p>
                     </div>
                   ) : (
                     <div className="flex flex-col max-h-60 no-scrollbar overflow-y-auto divide-y divide-border">
-                      {[
-                        { title: "Money sent", time: "9:00 AM 9/5/2025" },
-                        { title: "Money transfer", time: "9:00 AM 9/5/2025" },
-                        { title: "Money sent", time: "9:00 AM 9/5/2025" },
-                        { title: "Money sent", time: "9:00 AM 9/5/2025" },
-                        { title: "Money sent", time: "9:00 AM 9/5/2025" },
-                        { title: "Money sent", time: "9:00 AM 9/5/2025" },
-                        { title: "Money sent", time: "9:00 AM 9/5/2025" },
-                        { title: "Money sent", time: "9:00 AM 9/5/2025" },
-                      ].map((n, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center gap-3 py-3 cursor-pointer hover:bg-background hover:rounded-lg hover:border-transparent px-3 duration-300"
-                        >
+                      {MOCK_NOTIFICATIONS.map((n, i) => (
+                        <div key={i} className="flex items-center gap-3 py-3 cursor-pointer hover:bg-background hover:rounded-lg px-3 duration-300">
                           <span className="w-2 h-2 rounded-full bg-red-500" />
-                          <Image
-                            src="/icons/usd-svg.svg"
-                            alt="usd"
-                            height={24}
-                            width={24}
-                          />
+                          <Image src="/icons/usd-svg.svg" alt="usd" height={24} width={24} />
                           <div>
                             <p className="font-medium">{n.title}</p>
-                            <p className="text-xs text-foreground/60">
-                              {n.time}
-                            </p>
+                            <p className="text-xs text-foreground/60">{n.time}</p>
                           </div>
                         </div>
                       ))}
@@ -416,46 +297,17 @@ export default function AppHeader() {
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>
+
+              {/* Phone Menu */}
               <div className="hidden md:block">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <button
-                      type="button"
-                      className="p-0 bg-transparent border-none cursor-pointer rounded-full hover:bg-accent"
-                      aria-label="Phone menu"
-                    >
-                      <PhoneSVG aria-hidden="true" />
-                    </button>
+                    <IconButton label="Phone menu"><PhoneSVG /></IconButton>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    align="end"
-                    className="w-72 rounded-xl bg-background-1 shadow-lg border border-border p-1"
-                  >
-                    <div className="flex flex-col max-h-70 md:max-h-fit no-scrollbar overflow-y-auto divide-y divide-border">
-                      {[
-                        {
-                          icon: <MessageCircleMore />,
-                          title: "Chat",
-                          onClick: () =>
-                            toast.info("Chat feature is coming soon!"),
-                        },
-                        {
-                          icon: <Ticket />,
-                          title: "Coupon",
-                          onClick: () =>
-                            toast.info("Coupon feature is coming soon!"),
-                        },
-                      ].map((n, i) => (
-                        <div
-                          key={i}
-                          className="flex items-center gap-3 py-3 cursor-pointer hover:bg-background hover:rounded-lg hover:border-transparent px-3 duration-300"
-                          onClick={n.onClick}
-                        >
-                          {n?.icon}
-                          <div>
-                            <p className="font-medium">{n.title}</p>
-                          </div>
-                        </div>
+                  <DropdownMenuContent align="end" className="w-72 rounded-xl bg-background-1 shadow-lg border border-border p-1">
+                    <div className="flex flex-col divide-y divide-border">
+                      {PHONE_MENU_ITEMS.map((item, i) => (
+                        <MenuItem key={i} icon={item.icon} title={item.title} onClick={() => handleMenuAction(item.action)} />
                       ))}
                     </div>
                   </DropdownMenuContent>
@@ -464,52 +316,28 @@ export default function AppHeader() {
             </div>
           ) : (
             <div className="flex items-center gap-3">
-              <Button
-                variant="outline"
-                asChild
-                onClick={() => handleLoginClick()}
-              >
-                Login
-              </Button>
-
-              <Button
-                onClick={() => handleRegisterClick()}
-                variant="orangeGradient"
-                asChild
-              >
-                Register
-              </Button>
+              <Button variant="outline" onClick={() => handleAuthClick("login")}>Login</Button>
+              <Button variant="orangeGradient" onClick={() => handleAuthClick("register")}>Register</Button>
             </div>
           )}
-          {/* Auth Modal */}
+
+          {/* Modals */}
           <AuthModal />
-          {/* Forget Password Modal open */}
           <ForgetPasswordModal />
-          {/* Wallet Setup Modal */}
           <WalletSetupModal />
-          {/* Wallet Opening  modal */}
           <WalletOpenModal />
 
+          {/* Mobile Search Modal */}
           {showSearchModal && (
-            <div
-              className="fixed inset-0 z-9999 bg-black/60 flex items-start justify-center pt-20"
-              onClick={() => setShowSearchModal(false)}
-            >
-              <div
-                className="w-full max-w-md bg-background p-4 rounded-lg shadow-lg"
-                onClick={(e) => e.stopPropagation()}
-              >
+            <div className="fixed inset-0 z-9999 bg-black/60 flex items-start justify-center pt-20" onClick={() => setShowSearchModal(false)}>
+              <div className="w-full max-w-md bg-background p-4 rounded-lg shadow-lg" onClick={(e) => e.stopPropagation()}>
                 <SearchBar tab={false} />
               </div>
             </div>
           )}
         </div>
       </Suspense>
-      <LogoutModal
-        open={isLogoutModalOpen}
-        onOpenChange={setIsLogoutModalOpen}
-        onConfirm={handleLogoutConfirm}
-      />
+      <LogoutModal open={isLogoutModalOpen} onOpenChange={setIsLogoutModalOpen} onConfirm={() => toast.success("Logged out successfully!")} />
     </header>
   );
 }

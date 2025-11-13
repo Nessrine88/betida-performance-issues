@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useForm, type Resolver } from "react-hook-form";
+import { useForm, type UseFormReturn, type Resolver } from "react-hook-form";
 import { toast } from "sonner";
 import {
   Form,
@@ -27,121 +27,12 @@ import { DatePicker } from "@/app/[locale]/components/ui/date-picker";
 import GlobalFileUpload from "@/app/[locale]/components/global-components/global-file-upload";
 import OutlineCard from "@/app/[locale]/components/global-components/cards/outline-card";
 
-// Badge component for "Submitted"
-function SubmittedBadge() {
-  return (
-    <span className="bg-green-1 text-background px-2 py-1 text-xs font-medium rounded-full">
-      Submitted
-    </span>
-  );
+// Types
+interface LevelFormProps {
+  onSubmitSuccess: () => void;
 }
 
-// State for completed levels (simulate with local state; in real, use context or API)
-export default function VerificationPage() {
-  const [completedLevels, setCompletedLevels] = useState<Set<number>>(
-    new Set()
-  );
-
-  const markLevelCompleted = (level: number) => {
-    setCompletedLevels((prev) => new Set([...prev, level]));
-    toast.success(`Level ${level} submitted successfully!`);
-    // In real app, redirect or refresh
-  };
-
-  return (
-    <div className="flex flex-col gap-4 w-full">
-      <OutlineCard
-        title={
-          <div className="flex items-center gap-2">
-            Level 1{completedLevels.has(1) && <SubmittedBadge />}
-          </div>
-        }
-        collapsable
-        defaultOpen={!completedLevels.has(1)}
-      >
-        <div className="flex flex-col gap-6">
-          {/* {!completedLevels.has(1) && (
-            <p className="text-foreground text-sm flex flex-row items-center gap-2 border rounded-lg p-3">
-              <div className="bg-chart-3/30 text-chart-3 rounded-full h-5 w-5 flex items-center justify-center">
-                i
-              </div>{" "}
-              Please complete level 1 verification first.
-            </p>
-          )} */}
-          <Level1Form onSubmitSuccess={() => markLevelCompleted(1)} />
-        </div>
-      </OutlineCard>
-
-      <OutlineCard
-        title={
-          <div className="flex items-center gap-2">
-            Level 2{completedLevels.has(2) && <SubmittedBadge />}
-          </div>
-        }
-        collapsable
-        defaultOpen={completedLevels.has(1) && !completedLevels.has(2)}
-      >
-        <div className="flex flex-col gap-6">
-          {!completedLevels.has(1) && (
-            <p className="text-foreground text-sm flex flex-row items-center gap-2 border rounded-lg p-3">
-              <div className="bg-chart-3/30 text-chart-3 rounded-full h-5 w-5 flex items-center justify-center">
-                i
-              </div>{" "}
-              Please complete level 1 verification first.
-            </p>
-          )}
-          <Level2Form onSubmitSuccess={() => markLevelCompleted(2)} />
-        </div>
-      </OutlineCard>
-
-      <OutlineCard
-        title={
-          <div className="flex items-center gap-2">
-            Level 3{completedLevels.has(3) && <SubmittedBadge />}
-          </div>
-        }
-        collapsable
-        defaultOpen={completedLevels.has(2) && !completedLevels.has(3)}
-      >
-        <div className="flex flex-col gap-6">
-          {!completedLevels.has(2) && (
-            <p className="text-foreground text-sm flex flex-row items-center gap-2 border rounded-lg p-3">
-              <div className="bg-chart-3/30 text-chart-3 rounded-full h-5 w-5 flex items-center justify-center">
-                i
-              </div>{" "}
-              Please complete level 2 verification first.
-            </p>
-          )}
-          <Level3Form onSubmitSuccess={() => markLevelCompleted(3)} />
-        </div>
-      </OutlineCard>
-
-      <OutlineCard
-        title={
-          <div className="flex items-center gap-2">
-            Level 4{completedLevels.has(4) && <SubmittedBadge />}
-          </div>
-        }
-        collapsable
-        defaultOpen={completedLevels.has(3) && !completedLevels.has(4)}
-      >
-        <div className="flex flex-col gap-6">
-          {!completedLevels.has(3) && (
-            <p className="text-foreground text-sm flex flex-row items-center gap-2 border rounded-lg p-3">
-              <div className="bg-chart-3/30 text-chart-3 rounded-full h-5 w-5 flex items-center justify-center">
-                i
-              </div>{" "}
-              Please complete level 3 verification first.
-            </p>
-          )}
-          <Level4Form onSubmitSuccess={() => markLevelCompleted(4)} />
-        </div>
-      </OutlineCard>
-    </div>
-  );
-}
-
-// Level 1 Form
+// Schemas
 const level1Schema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
@@ -156,35 +47,151 @@ const level1Schema = z.object({
   occupationExperience: z.string().min(1, "Occupation experience is required"),
 });
 
+const level2Schema = z.object({
+  documentType: z.string().min(1, "Document type is required"),
+  frontSide: z.instanceof(File, { message: "Front side upload is required" }),
+  backSide: z.instanceof(File, { message: "Back side upload is required" }),
+});
+
+const level3Schema = z.object({
+  proofOfAddress: z.instanceof(File, { message: "Proof of address is required" }),
+});
+
+const level4Schema = z.object({
+  sourceOfFunds: z.instanceof(File, { message: "Source of funds is required" }),
+});
+
 type Level1Data = z.infer<typeof level1Schema>;
+type Level2Data = z.infer<typeof level2Schema>;
+type Level3Data = z.infer<typeof level3Schema>;
+type Level4Data = z.infer<typeof level4Schema>;
 
-interface LevelFormProps {
-  onSubmitSuccess: () => void;
-}
+// Shared Components
+const SubmittedBadge = () => (
+  <span className="bg-green-1 text-background px-2 py-1 text-xs font-medium rounded-full">
+    Submitted
+  </span>
+);
 
+const InfoAlert = ({ message }: { message: string }) => (
+  <p className="text-foreground text-sm flex flex-row items-center gap-2 border rounded-lg p-3">
+    <div className="bg-chart-3/30 text-chart-3 rounded-full h-5 w-5 flex items-center justify-center">
+      i
+    </div>
+    {message}
+  </p>
+);
+
+const FormHeader = ({ title, description }: { title: string; description: string }) => (
+  <p className="text-sm text-foreground/55 flex flex-col gap-1.5">
+    <div className="span text-semibold text-foreground">{title}</div>
+    {description}
+  </p>
+);
+
+// Reusable form field components
+const TextInput = ({ form, name, label }: { form: UseFormReturn<any>; name: string; label: string }) => (
+  <FormField
+    control={form.control}
+    name={name}
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel className="text-sm">{label}</FormLabel>
+        <FormControl>
+          <Input {...field} className="h-12 bg-background-1" />
+        </FormControl>
+        <FormMessage className="text-xs text-destructive" />
+      </FormItem>
+    )}
+  />
+);
+
+const SelectInput = ({ 
+  form, 
+  name, 
+  label, 
+  options 
+}: { 
+  form: UseFormReturn<any>; 
+  name: string; 
+  label: string; 
+  options: { value: string; label: string }[] 
+}) => (
+  <FormField
+    control={form.control}
+    name={name}
+    render={({ field }) => (
+      <FormItem className="w-full">
+        <FormLabel className="text-sm">{label}</FormLabel>
+        <FormControl>
+          <Select value={field.value} onValueChange={field.onChange}>
+            <SelectTrigger className="w-full h-12 bg-background-1 border rounded-lg">
+              <SelectValue className="!pl-12" />
+            </SelectTrigger>
+            <SelectContent>
+              {options.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value} className="!pl-12">
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </FormControl>
+        <FormMessage className="text-xs text-destructive" />
+      </FormItem>
+    )}
+  />
+);
+
+const FileInput = ({ 
+  form, 
+  name, 
+  label, 
+  showDescription = true 
+}: { 
+  form: UseFormReturn<any>; 
+  name: string; 
+  label: string; 
+  showDescription?: boolean 
+}) => (
+  <FormField
+    control={form.control}
+    name={name}
+    render={({ field }) => (
+      <FormItem>
+        <FormLabel className="text-sm">{label}</FormLabel>
+        <FormControl>
+          <GlobalFileUpload
+            id={name}
+            onChange={(file) => field.onChange(file)}
+            value={field.value || null}
+          />
+        </FormControl>
+        {showDescription && (
+          <FormDescription className="text-xs text-foreground/55">
+            Following file types are accepted: .png, .jpg, .pdf
+          </FormDescription>
+        )}
+        <FormMessage className="text-xs text-destructive" />
+      </FormItem>
+    )}
+  />
+);
+
+// Level Forms
 function Level1Form({ onSubmitSuccess }: LevelFormProps) {
   const form = useForm<Level1Data>({
     resolver: zodResolver(level1Schema) as unknown as Resolver<Level1Data>,
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      country: "",
-      placeOfBirth: "",
-      dob: "",
-      residentialAddress: "",
-      city: "",
-      postalCode: "",
-      occupationIndustry: "",
-      occupation: "",
-      occupationExperience: "",
+      firstName: "", lastName: "", country: "", placeOfBirth: "", dob: "",
+      residentialAddress: "", city: "", postalCode: "", occupationIndustry: "",
+      occupation: "", occupationExperience: "",
     },
     mode: "onChange",
   });
 
   const onSubmit = async (data: Level1Data) => {
-    // Simulate API call
     try {
-      // await fetch("/api/verify-level1", { method: "POST", body: JSON.stringify(data) });
       console.log("Level 1 data:", data);
       onSubmitSuccess();
     } catch {
@@ -195,95 +202,15 @@ function Level1Form({ onSubmitSuccess }: LevelFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <p className="text-sm text-foreground/55 flex flex-col gap-1.5">
-          <div className="span text-semibold text-foreground">
-            Confirm Your Details
-          </div>
-          Confirm Your Details. Please fill in your details & confirm your
-          identity to unlock additional services. All information is private &
-          secure.
-        </p>
+        <FormHeader 
+          title="Confirm Your Details"
+          description="Please fill in your details & confirm your identity to unlock additional services. All information is private & secure."
+        />
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-          <FormField
-            control={form.control}
-            name="firstName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm">
-                  First Name (including middle name, if applicable)*
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} className="h-12 bg-background-1" />
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm">Last Name*</FormLabel>
-                <FormControl>
-                  <Input {...field} className="h-12 bg-background-1" />
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="country"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="text-sm">Country*</FormLabel>
-                <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger
-                      id="country"
-                      className="w-full h-12 bg-background-1 border rounded-lg"
-                    >
-                      <SelectValue className="!pl-12" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Turkey" className="!pl-12">
-                        Turkey
-                      </SelectItem>
-                      {/* Add more countries as needed */}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="placeOfBirth"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="text-sm">Place of Birth*</FormLabel>
-                <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger
-                      id="placeOfBirth"
-                      className="w-full h-12 bg-background-1 border rounded-lg"
-                    >
-                      <SelectValue className="!pl-12" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Turkey" className="!pl-12">
-                        Turkey
-                      </SelectItem>
-                      {/* Add more */}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
+          <TextInput form={form} name="firstName" label="First Name (including middle name, if applicable)*" />
+          <TextInput form={form} name="lastName" label="Last Name*" />
+          <SelectInput form={form} name="country" label="Country*" options={[{ value: "Turkey", label: "Turkey" }]} />
+          <SelectInput form={form} name="placeOfBirth" label="Place of Birth*" options={[{ value: "Turkey", label: "Turkey" }]} />
           <FormField
             control={form.control}
             name="dob"
@@ -291,135 +218,25 @@ function Level1Form({ onSubmitSuccess }: LevelFormProps) {
               <FormItem>
                 <FormLabel className="text-sm">Date of Birth*</FormLabel>
                 <FormControl>
-                  <DatePicker
-                    name={field.name}
-                    control={form.control}
-                    className="w-full h-12 border rounded-lg"
-                    placeholder="Select date"
-                  />
+                  <DatePicker name={field.name} control={form.control} className="w-full h-12 border rounded-lg" placeholder="Select date" />
                 </FormControl>
                 <FormMessage className="text-xs text-destructive" />
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="residentialAddress"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm">Residential Address*</FormLabel>
-                <FormControl>
-                  <Input {...field} className="h-12 bg-background-1" />
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
+          <TextInput form={form} name="residentialAddress" label="Residential Address*" />
+          <TextInput form={form} name="city" label="City*" />
+          <TextInput form={form} name="postalCode" label="Postal Code*" />
+          <SelectInput 
+            form={form} 
+            name="occupationIndustry" 
+            label="Occupation Industry*" 
+            options={[{ value: "Arts, Culture, Entertainment & Media", label: "Arts, Culture, Entertainment & Media" }]} 
           />
-          <FormField
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm">City*</FormLabel>
-                <FormControl>
-                  <Input {...field} className="h-12 bg-background-1" />
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="postalCode"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm">Postal Code*</FormLabel>
-                <FormControl>
-                  <Input {...field} className="h-12 bg-background-1" />
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="occupationIndustry"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="text-sm">Occupation Industry*</FormLabel>
-                <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger
-                      id="occupationIndustry"
-                      className="w-full h-12 bg-background-1 border rounded-lg"
-                    >
-                      <SelectValue className="!pl-12" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem
-                        value="Arts, Culture, Entertainment & Media"
-                        className="!pl-12"
-                      >
-                        Arts, Culture, Entertainment & Media
-                      </SelectItem>
-                      {/* Add more */}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="occupation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm">Occupation*</FormLabel>
-                <FormControl>
-                  <Input {...field} className="h-12 bg-background-1" />
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="occupationExperience"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="text-sm">
-                  Occupation Experience*
-                </FormLabel>
-                <FormControl>
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger
-                      id="occupationExperience"
-                      className="w-full h-12 bg-background-1 border rounded-lg"
-                    >
-                      <SelectValue className="!pl-12" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Junior" className="!pl-12">
-                        Junior
-                      </SelectItem>
-                      {/* Add more */}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
+          <TextInput form={form} name="occupation" label="Occupation*" />
+          <SelectInput form={form} name="occupationExperience" label="Occupation Experience*" options={[{ value: "Junior", label: "Junior" }]} />
           <div className="h-full flex items-end">
-            <Button
-              aria-label="submit"
-              type="submit"
-              variant="gray"
-              className="w-full h-12"
-            >
-              Submit
-            </Button>
+            <Button type="submit" variant="gray" className="w-full h-12">Submit</Button>
           </div>
         </div>
       </form>
@@ -427,28 +244,14 @@ function Level1Form({ onSubmitSuccess }: LevelFormProps) {
   );
 }
 
-// Level 2 Form
-const level2Schema = z.object({
-  documentType: z.string().min(1, "Document type is required"),
-  frontSide: z.instanceof(File, { message: "Front side upload is required" }),
-  backSide: z.instanceof(File, { message: "Back side upload is required" }),
-});
-
-type Level2Data = z.infer<typeof level2Schema>;
-
 function Level2Form({ onSubmitSuccess }: LevelFormProps) {
   const form = useForm<Level2Data>({
     resolver: zodResolver(level2Schema) as unknown as Resolver<Level2Data>,
-    defaultValues: {
-      documentType: "",
-      frontSide: undefined,
-      backSide: undefined,
-    },
+    defaultValues: { documentType: "", frontSide: undefined, backSide: undefined },
     mode: "onChange",
   });
 
   const onSubmit = async (data: Level2Data) => {
-    // Simulate API call (e.g., multipart form)
     try {
       console.log("Level 2 data:", data);
       onSubmitSuccess();
@@ -460,108 +263,36 @@ function Level2Form({ onSubmitSuccess }: LevelFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <p className="text-sm text-foreground/55 flex flex-col gap-1.5">
-          <div className="span text-semibold text-foreground">
-            Confirm Your Details
-          </div>
-          Upload Identification. This step will unlock more capabilities such as
-          higher betting limits and enhanced account security.
-        </p>
-        <FormField
-          control={form.control}
-          name="documentType"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel className="text-sm">Document Type*</FormLabel>
-              <FormControl>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger
-                    id="documentType"
-                    className="w-full h-12 !bg-background-2 border rounded-lg"
-                  >
-                    <SelectValue className="!pl-12" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Driver License" className="!pl-12">
-                      Driver License
-                    </SelectItem>
-                    <SelectItem value="ID Card" className="!pl-12">
-                      ID Card
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage className="text-xs text-destructive" />
-            </FormItem>
-          )}
+        <FormHeader 
+          title="Confirm Your Details"
+          description="Upload Identification. This step will unlock more capabilities such as higher betting limits and enhanced account security."
+        />
+        <SelectInput 
+          form={form} 
+          name="documentType" 
+          label="Document Type*" 
+          options={[
+            { value: "Driver License", label: "Driver License" },
+            { value: "ID Card", label: "ID Card" }
+          ]} 
         />
         <FormDescription className="text-xs text-foreground/55">
           Following file types are accepted: .png, .jpg, .pdf
         </FormDescription>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="frontSide"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm">Front Side</FormLabel>
-                <FormControl>
-                  <GlobalFileUpload
-                    id="frontSide"
-                    onChange={(file) => field.onChange(file)}
-                    value={field.value || null}
-                  />
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="backSide"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm">Back Side*</FormLabel>
-                <FormControl>
-                  <GlobalFileUpload
-                    id="backSide"
-                    onChange={(file) => field.onChange(file)}
-                    value={field.value || null}
-                  />
-                </FormControl>
-                <FormMessage className="text-xs text-destructive" />
-              </FormItem>
-            )}
-          />
+          <FileInput form={form} name="frontSide" label="Front Side*" showDescription={false} />
+          <FileInput form={form} name="backSide" label="Back Side*" showDescription={false} />
         </div>
-        <Button
-          aria-label="submit"
-          type="submit"
-          variant="gray"
-          className="w-full h-10"
-        >
-          Submit
-        </Button>
+        <Button type="submit" variant="gray" className="w-full h-10">Submit</Button>
       </form>
     </Form>
   );
 }
 
-// Level 3 Form
-const level3Schema = z.object({
-  proofOfAddress: z.instanceof(File, {
-    message: "Proof of address is required",
-  }),
-});
-
-type Level3Data = z.infer<typeof level3Schema>;
-
 function Level3Form({ onSubmitSuccess }: LevelFormProps) {
   const form = useForm<Level3Data>({
     resolver: zodResolver(level3Schema) as unknown as Resolver<Level3Data>,
-    defaultValues: {
-      proofOfAddress: undefined,
-    },
+    defaultValues: { proofOfAddress: undefined },
     mode: "onChange",
   });
 
@@ -577,60 +308,21 @@ function Level3Form({ onSubmitSuccess }: LevelFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <p className="text-sm text-foreground/55 flex flex-col gap-1.5">
-          <div className="span text-semibold text-foreground">
-            Confirm Your Details
-          </div>
-          Verification. Please upload your proof of address. All documents must
-          be laying on a flat surface with all 4 corners inside the frame. All
-          information should be clear and identifiable.
-        </p>
-        <FormField
-          control={form.control}
-          name="proofOfAddress"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-sm">Proof of Address*</FormLabel>
-              <FormControl>
-                <GlobalFileUpload
-                  id="proofOfAddress"
-                  onChange={(file) => field.onChange(file)}
-                  value={field.value || null}
-                />
-              </FormControl>
-              <FormDescription className="text-xs text-foreground/55">
-                Following file types are accepted: .png, .jpg, .pdf
-              </FormDescription>
-              <FormMessage className="text-xs text-destructive" />
-            </FormItem>
-          )}
+        <FormHeader 
+          title="Confirm Your Details"
+          description="Please upload your proof of address. All documents must be laying on a flat surface with all 4 corners inside the frame. All information should be clear and identifiable."
         />
-        <Button
-          aria-label="submit"
-          type="submit"
-          variant="gray"
-          className="w-full h-10"
-        >
-          Submit
-        </Button>
+        <FileInput form={form} name="proofOfAddress" label="Proof of Address*" />
+        <Button type="submit" variant="gray" className="w-full h-10">Submit</Button>
       </form>
     </Form>
   );
 }
 
-// Level 4 Form
-const level4Schema = z.object({
-  sourceOfFunds: z.instanceof(File, { message: "Source of funds is required" }),
-});
-
-type Level4Data = z.infer<typeof level4Schema>;
-
 function Level4Form({ onSubmitSuccess }: LevelFormProps) {
   const form = useForm<Level4Data>({
     resolver: zodResolver(level4Schema) as unknown as Resolver<Level4Data>,
-    defaultValues: {
-      sourceOfFunds: undefined,
-    },
+    defaultValues: { sourceOfFunds: undefined },
     mode: "onChange",
   });
 
@@ -646,43 +338,62 @@ function Level4Form({ onSubmitSuccess }: LevelFormProps) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <p className="text-sm text-foreground/55 flex flex-col gap-1.5">
-          <div className="span text-semibold text-foreground">
-            Confirm Your Details
-          </div>
-          Verification. Please upload supporting documentation for your Source
-          of Funds. Document laying on a flat surface must show all 4 corners
-          and all information should be clear and identifiable.
-        </p>
-        <FormField
-          control={form.control}
-          name="sourceOfFunds"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-sm">Source of Funds*</FormLabel>
-              <FormControl>
-                <GlobalFileUpload
-                  id="sourceOfFunds"
-                  onChange={(file) => field.onChange(file)}
-                  value={field.value || null}
-                />
-              </FormControl>
-              <FormDescription className="text-xs text-foreground/55">
-                Following file types are accepted: .png, .jpg, .pdf
-              </FormDescription>
-              <FormMessage className="text-xs text-destructive" />
-            </FormItem>
-          )}
+        <FormHeader 
+          title="Confirm Your Details"
+          description="Please upload supporting documentation for your Source of Funds. Document laying on a flat surface must show all 4 corners and all information should be clear and identifiable."
         />
-        <Button
-          aria-label="submit"
-          type="submit"
-          variant="gray"
-          className="w-full h-10"
-        >
-          Submit
-        </Button>
+        <FileInput form={form} name="sourceOfFunds" label="Source of Funds*" />
+        <Button type="submit" variant="gray" className="w-full h-10">Submit</Button>
       </form>
     </Form>
+  );
+}
+
+// Level configuration
+const LEVELS = [
+  { id: 1, title: "Level 1", Component: Level1Form, prerequisite: null },
+  { id: 2, title: "Level 2", Component: Level2Form, prerequisite: 1 },
+  { id: 3, title: "Level 3", Component: Level3Form, prerequisite: 2 },
+  { id: 4, title: "Level 4", Component: Level4Form, prerequisite: 3 },
+];
+
+// Main Component
+export default function VerificationPage() {
+  const [completedLevels, setCompletedLevels] = useState<Set<number>>(new Set());
+
+  const markLevelCompleted = (level: number) => {
+    setCompletedLevels((prev) => new Set([...prev, level]));
+    toast.success(`Level ${level} submitted successfully!`);
+  };
+
+  return (
+    <div className="flex flex-col gap-4 w-full">
+      {LEVELS.map(({ id, title, Component, prerequisite }) => {
+        const isCompleted = completedLevels.has(id);
+        const prerequisiteCompleted = prerequisite ? completedLevels.has(prerequisite) : true;
+        const shouldOpen = prerequisiteCompleted && !isCompleted;
+
+        return (
+          <OutlineCard
+            key={id}
+            title={
+              <div className="flex items-center gap-2">
+                {title}
+                {isCompleted && <SubmittedBadge />}
+              </div>
+            }
+            collapsable
+            defaultOpen={shouldOpen}
+          >
+            <div className="flex flex-col gap-6">
+              {!prerequisiteCompleted && (
+                <InfoAlert message={`Please complete level ${prerequisite} verification first.`} />
+              )}
+              <Component onSubmitSuccess={() => markLevelCompleted(id)} />
+            </div>
+          </OutlineCard>
+        );
+      })}
+    </div>
   );
 }
