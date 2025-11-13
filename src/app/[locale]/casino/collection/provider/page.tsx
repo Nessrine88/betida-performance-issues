@@ -13,7 +13,7 @@ import SearchBar from "@/app/[locale]/components/common/search-bar/search-bar";
 import CasinoBetsTable from "@/app/[locale]/components/sections/casino/casino-bets-table";
 import ProviderCard from "./provider-card";
 import { getTranslations } from "next-intl/server";
-export const revalidate = 3600;
+export const revalidate = 60;
 
 async function ProviderPage() {
   const publishersData = await fetchPublishers();
