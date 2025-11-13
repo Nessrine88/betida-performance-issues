@@ -1,6 +1,4 @@
-"use client";
-
-import { Suspense, useMemo } from "react";
+import { Suspense } from "react";
 import CImage from "@/lib/CIdImage";
 import { Link } from "@/i18n/navigation";
 import ProfileInfo from "@/app/[locale]/components/common/profile-info/profile-info";
@@ -46,57 +44,8 @@ interface IType {
   players: number;
 }
 
-export default function HeroSection({ types }: { types: IType[] }) {
-  const lcpImage = types[0]?.imagePublicId;
-
-  // Memoize type items to avoid unnecessary re-renders
-  const typeItems = useMemo(
-    () =>
-      types.map((type: IType, index: number) => (
-        <div
-          key={index}
-          className="w-full transition-all duration-300 hover:-translate-y-1"
-        >
-          <Link
-            href={type.url}
-            aria-label={type.title}
-            className="relative w-full h-full space-y-2 block"
-          >
-            {/* Image container with fixed aspect ratio */}
-            <span
-              className={`w-full bg-secondary rounded-lg overflow-hidden border border-transparent inline-block
-                aspect-[366/284] hover:border-chart-${
-                  type.title === "Casino" ? "1" : "2"
-                } duration-300`}
-            >
-              <CImage
-                publicId={type.imagePublicId}
-                alt={`${type.title} type`}
-                width={648}
-                height={356}
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
-                className="w-full h-full object-cover"
-                priority={index === 0} // only first image is LCP
-                fetchPriority={index === 0 ? "high" : "auto"}
-              />
-            </span>
-
-            {/* Title and player status */}
-            <span className="text-white w-full inline-flex items-center justify-between">
-              <span className="text-sm font-semibold">{type.title}</span>
-              <Suspense
-                fallback={
-                  <div className="h-5 w-12 bg-gray-700 rounded animate-pulse" />
-                }
-              >
-                <PlayerStatus players={type.players} />
-              </Suspense>
-            </span>
-          </Link>
-        </div>
-      )),
-    [types]
-  );
+export default async function HeroSection({ types }: { types: IType[] }) {
+  const lcpImage = types?.[0]?.imagePublicId;
 
   return (
     <>
@@ -112,7 +61,49 @@ export default function HeroSection({ types }: { types: IType[] }) {
 
         {/* Types Grid */}
         <div className="grid grid-cols-2 sm:col-span-2 gap-4 lg:gap-8 xl:gap-12">
-          {typeItems}
+          {types.map((type, index) => (
+            <div
+              key={type.url || index}
+              className="w-full transition-all duration-300 hover:-translate-y-1"
+            >
+              <Link
+                href={type.url}
+                aria-label={type.title}
+                className="relative w-full h-full space-y-2 block"
+              >
+                {/* Image container with fixed aspect ratio */}
+                <span
+                  className={`w-full bg-secondary rounded-lg overflow-hidden border border-transparent inline-block
+                    aspect-[366/284] hover:border-chart-${
+                      type.title === "Casino" ? "1" : "2"
+                    } duration-300`}
+                >
+                  <CImage
+                    publicId={type.imagePublicId}
+                    alt={`${type.title} type`}
+                    width={648}
+                    height={356}
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-full object-cover"
+                    priority={index === 0}
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                  />
+                </span>
+
+                {/* Title and player status */}
+                <span className="text-white w-full inline-flex items-center justify-between">
+                  <span className="text-sm font-semibold">{type.title}</span>
+                  <Suspense
+                    fallback={
+                      <div className="h-5 w-12 bg-gray-700 rounded animate-pulse" />
+                    }
+                  >
+                    <PlayerStatus players={type.players} />
+                  </Suspense>
+                </span>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </>

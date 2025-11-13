@@ -10,7 +10,9 @@
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "lighthouse": "lighthouse http://localhost:3000 --view --quiet"
+    "lighthouse": "lighthouse http://localhost:3000 --view --quiet",
+    "build:webpack": "next build --no-turbo",
+    "analyze": "ANALYZE=true npm run build:webpack"
   },
   "dependencies": {
     "@cloudinary/url-gen": "^1.22.0",

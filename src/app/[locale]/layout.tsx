@@ -16,7 +16,6 @@ import GlobalProvider from "@/providers/GlobalProvider";
 import CookieBot from "./components/common/cookie-bot";
 import ServerSiteComponents from "./components/modals/server-site-components/server-site-components";
 
-export const runtime = "edge";
 
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
